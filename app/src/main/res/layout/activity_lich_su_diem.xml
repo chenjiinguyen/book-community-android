@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF9999"
+    tools:context=".activity.PointHistoryActivity"
+    android:padding="10dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="2dp"
+        app:cardCornerRadius="10dp"
+        android:background="#FFFFFF"
+        android:id="@+id/cardViewThongTin"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="129dp">
+        <ImageView
+            android:id="@+id/imgDiem"
+            android:layout_width="54dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
+        <TextView
+            android:id="@+id/tvTen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/aclonica"
+            android:text="Điểm của tôi"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+
+            android:id="@+id/tvDiemSo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="46dp"
+            android:fontFamily="@font/acme"
+            android:text="12"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/imgDiem"
+            app:layout_constraintTop_toBottomOf="@+id/tvTen" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/cardViewLichSuDiem"
+        android:layout_below="@id/cardViewThongTin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:id="@+id/recyclerLSDiem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardView"
+            android:layout_marginTop="2dp" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
