@@ -15,6 +15,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    defaultConfig {
+        buildConfigField "String", "SERVER_HOST", "\"${project.SERVER_HOST}\""
+        buildConfigField "String", "SERVER_PORT", "\"${project.SERVER_PORT}\""
+        buildConfigField "String", "SERVER_PROTOCOL", "\"${project.SERVER_PROTOCOL}\""
+
+    }
 
     buildTypes {
         release {
@@ -22,6 +28,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

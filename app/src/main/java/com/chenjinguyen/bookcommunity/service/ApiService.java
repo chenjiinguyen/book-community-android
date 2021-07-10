@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chenjinguyen.bookcommunity.BuildConfig;
 import com.chenjinguyen.bookcommunity.R;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
 import com.chenjinguyen.bookcommunity.model.BookModel;
@@ -30,9 +31,10 @@ public class ApiService {
     BookCommunityService service;
 
     public ApiService(){
+        String url = String.join("",BuildConfig.SERVER_PROTOCOL,"://",BuildConfig.SERVER_HOST,":",BuildConfig.SERVER_PORT,"/api/");
         api = new Retrofit
                 .Builder()
-                .baseUrl("http://192.168.1.4:3000/api/")
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = api.create(BookCommunityService.class);
