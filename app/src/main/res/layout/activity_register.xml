@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity"
+    android:orientation="vertical"
+    android:weightSum="10"
+android:background="#EEEEEE"
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="#CCCCCC"
+        app:titleTextColor="#CCCCCC"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_weight="3"
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="100dp"
+                android:textSize="40dp"
+                android:textColor="#FF0000"
+                android:text="CREATE ACOUNT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <EditText
+                android:drawableLeft="@drawable/ic_baseline_account_box_24"
+                android:hint=" User name"
+                android:id="@+id/editextusername"
+                android:layout_marginLeft="30dp"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:background="@drawable/trangtri"
+                ></EditText>
+            <EditText
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_email_24"
+                android:hint=" Email"
+                android:id="@+id/editextemail"
+                android:layout_marginLeft="30dp"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:background="@drawable/trangtri"
+                app:layout_constraintTop_toBottomOf="@+id/editextusername"
+                ></EditText>
+
+            <EditText
+
+                android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+                android:hint=" Password"
+                android:layout_marginTop="10dp"
+                android:id="@+id/edittextmk"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/trangtri"
+
+                app:layout_constraintTop_toBottomOf="@+id/editextemail"></EditText>
+
+            <EditText
+
+                android:drawableLeft="@drawable/ic_baseline_date_range_24"
+                android:hint=" Birthday"
+                android:layout_marginTop="10dp"
+                android:id="@+id/edittextbirthday"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/trangtri"
+
+                app:layout_constraintTop_toBottomOf="@+id/editextemail"></EditText>
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RadioButton
+
+        android:textSize="20dp"
+        android:textColor="#999999"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="100dp"
+        android:id="@+id/radiomale"
+        android:text="Male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RadioButton
+        android:textSize="20dp"
+        android:textColor="#999999"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/radiofemale"
+        android:text="Female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical">
+        <Button
+            android:layout_marginLeft="30dp"
+            android:id="@+id/btnsingin"
+            android:backgroundTint="#FF3333"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:text="SIGN IN"
+            ></Button>
+
+    </LinearLayout>
+</LinearLayout>
