@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,19 +8,20 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:id="@+id/imagetruyen"
-            android:src="@mipmap/ic_launcher"
+            android:id="@+id/poster_book"
+            android:layout_width="110dp"
+            android:layout_height="151dp"
             android:layout_margin="10dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp">
-        </ImageView>
+            android:src="@mipmap/ic_launcher"
+            tools:srcCompat="@drawable/book"></ImageView>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/textviewtentruyen"
+                android:id="@+id/title_book"
                 android:text="Tên tác phẩm"
                 android:textColor="#FF0000"
                 android:textSize="20sp"
@@ -29,7 +31,7 @@
                 android:layout_height="wrap_content"></TextView>
             <TextView
                 android:text="Thể loại"
-                android:id="@+id/textviewtheloai"
+                android:id="@+id/category_book"
                 android:textColor="#BBBBBB"
                 android:textSize="20sp"
                 android:layout_margin="10dp"
@@ -38,7 +40,7 @@
 
             <TextView
                 android:text="Tên tác giả"
-                android:id="@+id/textviewtentacgia"
+                android:id="@+id/author_book"
                 android:textColor="#BBBBBB"
                 android:textSize="20sp"
                 android:layout_margin="10dp"

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.chenjinguyen.bookcommunity.activity.HomeActivity;
+import com.chenjinguyen.bookcommunity.service.ApiService;
 
 public class MainActivity extends AppCompatActivity {
 
