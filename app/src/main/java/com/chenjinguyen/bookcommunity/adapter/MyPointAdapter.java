@@ -1,6 +1,7 @@
 package com.chenjinguyen.bookcommunity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
 import com.chenjinguyen.bookcommunity.model.MyPoint;
 import com.chenjinguyen.bookcommunity.R;
 
@@ -34,6 +36,7 @@ public class MyPointAdapter extends RecyclerView.Adapter<MyPointAdapter.KHUNGNHI
         MyPoint myAcc = data.get(position);
         holder.tenTruyen.setText(myAcc.getTenTruyen());
         holder.soDiem.setText(myAcc.getDiem());
+
     }
 
     @Override

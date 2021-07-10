@@ -1,13 +1,22 @@
 package com.chenjinguyen.bookcommunity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.chenjinguyen.bookcommunity.activity.HomeActivity;
+import com.chenjinguyen.bookcommunity.fragment.HomeFragment;
+import com.chenjinguyen.bookcommunity.fragment.UserFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,5 +24,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent t = new Intent(this, HomeActivity.class);
         startActivity(t);
+
+
+
     }
+
 }

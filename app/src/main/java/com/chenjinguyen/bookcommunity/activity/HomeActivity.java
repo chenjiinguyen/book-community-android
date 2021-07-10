@@ -1,18 +1,28 @@
 package com.chenjinguyen.bookcommunity.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.chenjinguyen.bookcommunity.R;
 import com.chenjinguyen.bookcommunity.fragment.HomeFragment;
+import com.chenjinguyen.bookcommunity.fragment.UserFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    Fragment fragment;
+    BottomNavigationView bottomNavigationView;
+    TextView tvDiem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +34,27 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         loadFragment(new HomeFragment());
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.nav_home);
+        tvDiem = findViewById(R.id.tvDiem);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                fragment = new HomeFragment();
+                int id = item.getItemId();
+                switch (id) {
+                    case R.id.nav_item_home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.nav_item_account:
+                        fragment = new UserFragment();
+                        break;
+                }
+                loadFragment(fragment);
+                return true;
+            }
+        });
+
     }
 
     public void loadFragment(Fragment frm){

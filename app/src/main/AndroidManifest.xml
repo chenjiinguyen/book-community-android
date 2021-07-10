@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCommunity">
-        <activity android:name=".activity.PointHistoryActivity"></activity>
+        <activity android:name=".activity.ListofWorksPostedActivity"></activity>
+        <activity android:name=".activity.PointHistoryActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,6 +1,7 @@
 package com.chenjinguyen.bookcommunity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenjinguyen.bookcommunity.R;
+import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
 import com.chenjinguyen.bookcommunity.model.InfoAccount;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class InfoAccountAdapter extends RecyclerView.Adapter<InfoAccountAdapter.
         InfoAccount inforAccount = data.get(position);
         holder.imgview.setImageResource(inforAccount.getIconinfo());
         holder.txtview.setText(inforAccount.getNameinfo());
+
     }
 
     @Override

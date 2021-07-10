@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class PointHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_history);
-        getSupportActionBar().hide();
+        Intent intent = getIntent();
 
         data = new ArrayList<>();
         data.add(new MyPoint("Điểm +4", "Thất Vương Phi báo thù Thất Vương Phi báo thù"));
@@ -31,7 +32,6 @@ public class PointHistoryActivity extends AppCompatActivity {
 
         recyclerview = findViewById(R.id.recyclerLSDiem);
         MyPointAdapter myPointAdapter = new MyPointAdapter(this, data);
-
         recyclerview.setAdapter(myPointAdapter);
         recyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
     }
