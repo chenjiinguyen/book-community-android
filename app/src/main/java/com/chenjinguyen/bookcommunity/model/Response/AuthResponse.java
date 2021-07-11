@@ -11,7 +11,7 @@ public class AuthResponse extends Response {
     @Expose
     String token;
 
-    @SerializedName("user")
+    @SerializedName("data")
     @Expose
     UserModel user;
 
