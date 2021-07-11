@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="@drawable/login_bg_top3"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+<LinearLayout
+    android:layout_weight="4"
+
+    android:layout_width="match_parent"
+    android:layout_height="0dp">
+    <TextView
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:textSize="50dp"
+        android:textColor="#FFFFFF"
+        android:text="MANGATOON"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></TextView>
+</LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+                <EditText
+                    android:drawableLeft="@drawable/ic_baseline_account_box_24"
+                    android:hint=" Username"
+                    android:id="@+id/editext_username"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/trangtri"
+                    ></EditText>
+
+                <EditText
+
+                    android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
+                    android:hint=" Password"
+                    android:inputType="textPassword"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/edittext_pass"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/trangtri"
+
+                    app:layout_constraintTop_toBottomOf="@+id/editextemail"></EditText>
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:backgroundTint="#FF3333"
+                    android:layout_marginLeft="150dp"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:text="LOGIN"
+                    ></Button>
+<TextView
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="170dp"
+    android:textSize="20dp"
+    android:text="OR"
+    android:textColor="#DDDDDD"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_weight="2"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="horizontal">
+    <Button
+
+        android:text="REGISTER NOW"
+        android:id="@+id/editext_register"
+        android:layout_marginLeft="30dp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FF3333"
+
+        ></Button>
+</LinearLayout>
+</LinearLayout>

@@ -14,6 +14,7 @@ import com.chenjinguyen.bookcommunity.activity.HomeActivity;
 import com.chenjinguyen.bookcommunity.fragment.HomeFragment;
 import com.chenjinguyen.bookcommunity.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.chenjinguyen.bookcommunity.service.ApiService;
 
 public class MainActivity extends AppCompatActivity {
 
