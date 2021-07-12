@@ -26,34 +26,37 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginLeft="160dp"
         android:layout_marginTop="60dp"
-        android:fontFamily="@font/abril_fatface"
-        android:text="TextView"
+        android:layout_toEndOf="@+id/imageView"
+        android:fontFamily="@font/montserrat"
+        android:text="Khách"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="6dp"
-        app:cardBackgroundColor="#e6f7ff"
         android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
+        android:layout_marginStart="30dp"
         android:layout_marginLeft="174dp"
-        app:cardElevation="2dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/imageView"
+        app:cardBackgroundColor="#e6f7ff"
         app:cardCornerRadius="10dp"
-        >
+        app:cardElevation="2dp">
+
         <TextView
             android:id="@+id/tvMem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Member"
-            android:paddingBottom="2dp"
             android:layout_gravity="center"
-            android:textStyle="bold"
+            android:paddingBottom="2dp"
+            android:text="Member"
             android:textColor="#3399FF"
-            />
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
 
@@ -86,7 +89,7 @@
         android:layout_marginLeft="284dp"
         android:layout_marginTop="140dp"
         android:fontFamily="@font/acme"
-        android:text="TextView"
+        android:text="0"
         android:textColor="#FF5454"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -98,7 +101,7 @@
         android:layout_marginLeft="124dp"
         android:layout_marginTop="140dp"
         android:fontFamily="@font/acme"
-        android:text="TextView"
+        android:text="0"
         android:textColor="#FF5454"
         android:textSize="20sp"
         android:textStyle="bold" />

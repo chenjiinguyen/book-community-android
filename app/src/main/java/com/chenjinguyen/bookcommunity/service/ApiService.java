@@ -4,20 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenjinguyen.bookcommunity.BuildConfig;
 import com.chenjinguyen.bookcommunity.R;
 import com.chenjinguyen.bookcommunity.activity.HomeActivity;
+import com.chenjinguyen.bookcommunity.activity.ListofWorksPostedActivity;
 import com.chenjinguyen.bookcommunity.activity.LoginActivity;
+import com.chenjinguyen.bookcommunity.activity.LogoutActivity;
+import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
 import com.chenjinguyen.bookcommunity.activity.RegisterActivity;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
+import com.chenjinguyen.bookcommunity.adapter.InfoAccountAdapter;
 import com.chenjinguyen.bookcommunity.model.BookModel;
+import com.chenjinguyen.bookcommunity.model.InfoAccount;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
@@ -160,5 +168,184 @@ public class ApiService {
         });
     }
 
+    public void ListofWorksPosted(String bearer, View v) {
+        service.me(bearer).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response){
+               if(response.code() != 401){
+                   boolean success = response.body().isSuccess();
+
+                   if(success) {
+                       UserModel userModel = response.body().getUser();
+                       TextView tvName = v.findViewById(R.id.tvName);
+                       ImageView imgAvt = v.findViewById(R.id.imageView);
+
+                       tvName.setText(userModel.getName());
+                       Picasso.get().load(userModel.getAvatar()).fit().centerCrop().into(imgAvt);
+                   }
+                   else {
+                       Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               }
+
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Log.e("Not valid", t.getMessage());
+            }
+        });
+
+        service.meBook(bearer).enqueue(new Callback<BooksResponse>() {
+            @Override
+            public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
+                boolean success = response.body().isSuccess();
+
+                if(success) {
+
+                   ArrayList<BookModel> bookModels = response.body().getBooks();
+                   BookAdapter bookAdapter = new BookAdapter(v.getContext(), bookModels, 1);
+                   RecyclerView recyclerView = v.findViewById(R.id.rclListofWorks);
+                   recyclerView.setAdapter(bookAdapter);
+
+                    recyclerView.setLayoutManager(new GridLayoutManager(v.getContext(), 2));
+
+                }
+                else {
+                    Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BooksResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
+    public void UserFragment(String bearer, View v) {
+        service.me(bearer).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response){
+
+                ArrayList<InfoAccount> InfoAccounts = new ArrayList<>();
+                RecyclerView recyclerView = v.findViewById(R.id.rclinfor);
+
+
+                if(response.code() != 401){
+                    boolean success = response.body().isSuccess();
+
+                    if(success) {
+                        InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_account_circle_24, "Đăng xuất",LogoutActivity .class));
+
+                        UserModel userModel = response.body().getUser();
+                        TextView tvName = v.findViewById(R.id.tvName);
+                        ImageView imgAvt = v.findViewById(R.id.imageView);
+
+                        tvName.setText(userModel.getName());
+                        Picasso.get().load(userModel.getAvatar()).fit().centerCrop().into(imgAvt);
+
+                        imgAvt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(v.getContext(), ListofWorksPostedActivity.class);
+                                v.getContext().startActivity(intent);
+                            }
+                        });
+                    }
+                    else {
+                        Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_stars_24, "Đăng Nhập", LoginActivity.class));
+                }
+                InfoAccountAdapter InfoAccountAdapter = new InfoAccountAdapter(v.getContext(), InfoAccounts);
+                recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
+                recyclerView.setAdapter(InfoAccountAdapter);
+
+            }
+
+
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Log.e("Not valid", t.getMessage());
+            }
+        });
+        service.meBook(bearer).enqueue(new Callback<BooksResponse>() {
+            @Override
+            public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
+                if(response.code() != 401) {
+                    boolean success = response.body().isSuccess();
+                    if(success) {
+                        int book_count = response.body().getBooks().size();
+                        TextView tvSLTruyen = v.findViewById(R.id.tvSLDocTruyen);
+                        tvSLTruyen.setText(book_count + "");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BooksResponse> call, Throwable t) {
+
+            }
+        });
+
+        service.me(bearer).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if(response.code() != 401) {
+                    boolean success = response.body().isSuccess();
+                    if(success) {
+                        int point = response.body().getUser().getPoint();
+                        TextView tvSoDiem = v.findViewById(R.id.tvSoDiem);
+                        tvSoDiem.setText(point + "");
+
+                        tvSoDiem.setOnClickListener(new View.OnClickListener(){
+                            public void onClick(View v){
+                                Intent intent = new Intent(v.getContext(), PointHistoryActivity.class);
+                                v.getContext().startActivity(intent);
+                            }
+                        });
+
+                        TextView tvDiem = v.findViewById(R.id.tvDiem);
+                        tvDiem.setOnClickListener(new View.OnClickListener(){
+                            public void onClick(View v){
+                                Intent intent = new Intent(v.getContext(), PointHistoryActivity.class);
+                                v.getContext().startActivity(intent);
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void PointHistory(String bearer, View v) {
+        service.me(bearer).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                boolean success = response.body().isSuccess();
+                if(success) {
+                    int point = response.body().getUser().getPoint();
+                    TextView tvSoDiem = v.findViewById(R.id.tvDiemSo);
+                    tvSoDiem.setText(point + "");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

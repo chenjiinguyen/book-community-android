@@ -1,5 +1,7 @@
 package com.chenjinguyen.bookcommunity.model;
 
+import android.content.Context;
+
 import java.io.Serializable;
 
 public class InfoAccount implements Serializable {
@@ -8,11 +10,6 @@ public class InfoAccount implements Serializable {
     }
 
     public void setNameinfo(String nameinfo) {
-        this.nameinfo = nameinfo;
-    }
-
-    public InfoAccount(int iconinfo, String nameinfo) {
-        this.iconinfo = iconinfo;
         this.nameinfo = nameinfo;
     }
 
@@ -28,4 +25,27 @@ public class InfoAccount implements Serializable {
 
     int iconinfo;
 
+
+
+    Class _class;
+
+    public Class get_class() {
+        return _class;
+    }
+
+    public void set_class(Class _class) {
+        this._class = _class;
+    }
+
+    public InfoAccount(int iconinfo,String nameinfo, Class _class) {
+        this.nameinfo = nameinfo;
+        this.iconinfo = iconinfo;
+        this._class = _class;
+    }
+
+    public InfoAccount(int iconinfo,String nameinfo) {
+        this.nameinfo = nameinfo;
+        this.iconinfo = iconinfo;
+        this._class = null;
+    }
 }

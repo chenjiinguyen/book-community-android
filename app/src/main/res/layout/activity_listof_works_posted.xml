@@ -9,81 +9,103 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
 
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                >
+                android:layout_height="match_parent">
 
 
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/imgBg"
-                android:layout_width="match_parent"
-                android:layout_height="410dp"
-                android:layout_marginTop="-10dp"
-                android:src="@drawable/rainbook"
-
-                 />
-
-            <androidx.cardview.widget.CardView
-                android:layout_below="@+id/imgBg"
-                android:layout_marginTop="-16dp"
-                app:cardElevation="1dp"
-                app:cardCornerRadius="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/imgAcc"
-                    android:src="@drawable/avatar" />
-
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="100dp"
-                    android:fontFamily="@font/abril_fatface"
-                    android:text="Diệp Hạ Nhi"
-                    android:textSize="16dp"
-
-                    />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="98dp"
-                    android:src="@drawable/ic_baseline_drive_file_rename_outline_24"
-                    />
-
-                <TextView
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/imgBg"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center|left"
-                    android:paddingLeft="10dp"
-                    android:background="#FFCCCC"
-                    android:text="DANH SÁCH TRUYỆN ĐÃ ĐĂNG"
-                    android:layout_marginTop="130dp"
-                    android:textColor="#fc1c03"
-                    android:textStyle="bold" />
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rclListofWorks"
+                    android:layout_height="410dp"
+                    android:layout_marginTop="-10dp"
+                    android:src="@drawable/rainbook" />
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="160dp"
-                    />
-            </androidx.cardview.widget.CardView>
+                    android:layout_below="@+id/imgBg"
+                    android:layout_marginTop="-16dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="1dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipChildren="false"
+                        android:clipToPadding="false">
+
+
+                        <com.mikhaellopez.circularimageview.CircularImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="-50dp"
+                            android:src="@drawable/avatar"
+
+                            />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/imageView"
+                            tools:ignore="NotSibling">
+
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/imageView"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="Diệp Hạ Nhi"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/imageView"
+                                android:layout_alignRight="@id/imageView"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/ic_baseline_drive_file_rename_outline_24" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvds"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="130dp"
+                            android:background="#FFCCCC"
+                            android:gravity="center|left"
+                            android:paddingLeft="10dp"
+                            android:text="DANH SÁCH TRUYỆN ĐÃ ĐĂNG"
+                            android:textColor="#fc1c03"
+                            android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rclListofWorks"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tvds"
+                            android:layout_marginTop="10dp"
+                            android:padding="30dp" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
         </LinearLayout>
