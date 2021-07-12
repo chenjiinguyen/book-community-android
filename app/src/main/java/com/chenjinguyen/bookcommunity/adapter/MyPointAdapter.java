@@ -1,7 +1,6 @@
 package com.chenjinguyen.bookcommunity.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
-import com.chenjinguyen.bookcommunity.model.MyPoint;
+import com.chenjinguyen.bookcommunity.model.PointModel;
 import com.chenjinguyen.bookcommunity.R;
 
 import java.util.ArrayList;
 
 public class MyPointAdapter extends RecyclerView.Adapter<MyPointAdapter.KHUNGNHIN> {
     Context context;
-    ArrayList<MyPoint> data;
+    ArrayList<PointModel> data;
 
-    public MyPointAdapter(Context context, ArrayList<MyPoint> data) {
+    public MyPointAdapter(Context context, ArrayList<PointModel> data) {
         this.context = context;
         this.data = data;
     }
@@ -33,9 +31,9 @@ public class MyPointAdapter extends RecyclerView.Adapter<MyPointAdapter.KHUNGNHI
 
     @Override
     public void onBindViewHolder(@NonNull KHUNGNHIN holder, int position) {
-        MyPoint myAcc = data.get(position);
-        holder.tenTruyen.setText(myAcc.getTenTruyen());
-        holder.soDiem.setText(myAcc.getDiem());
+        PointModel myAcc = data.get(position);
+        holder.tenTruyen.setText(myAcc.getBook());
+        holder.soDiem.setText(((myAcc.isCharge())?"+":"-")+myAcc.getPoint());
 
     }
 

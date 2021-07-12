@@ -3,6 +3,7 @@ package com.chenjinguyen.bookcommunity.service;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
+import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 
 import java.util.Date;
 
@@ -30,4 +31,7 @@ public interface BookCommunityService {
 
     @GET("me/book/")
     Call<BooksResponse> meBook(@Header("Authorization") String bearer);
+
+    @GET("me/point")
+    Call<PointResponse> mePoint(@Header("Authorization") String bearer);
 }

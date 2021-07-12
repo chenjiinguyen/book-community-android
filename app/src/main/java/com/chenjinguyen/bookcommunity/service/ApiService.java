@@ -24,11 +24,14 @@ import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
 import com.chenjinguyen.bookcommunity.activity.RegisterActivity;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
 import com.chenjinguyen.bookcommunity.adapter.InfoAccountAdapter;
+import com.chenjinguyen.bookcommunity.adapter.MyPointAdapter;
 import com.chenjinguyen.bookcommunity.model.BookModel;
 import com.chenjinguyen.bookcommunity.model.InfoAccount;
+import com.chenjinguyen.bookcommunity.model.PointModel;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
+import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 import com.chenjinguyen.bookcommunity.model.UserModel;
 import com.squareup.picasso.Picasso;
 
@@ -346,6 +349,25 @@ public class ApiService {
 
             }
         });
+        service.mePoint(bearer).enqueue(new Callback<PointResponse>() {
+            @Override
+            public void onResponse(Call<PointResponse> call, Response<PointResponse> response) {
+                boolean success = response.body().isSuccess();
+                if(success) {
+                    ArrayList<PointModel> pointModels = response.body().getData();
+                    MyPointAdapter myPointAdapter = new MyPointAdapter(v.getContext(), pointModels);
+                    RecyclerView recyclerView = v.findViewById(R.id.recyclerLSDiem);
+                    recyclerView.setAdapter(myPointAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), RecyclerView.VERTICAL,false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PointResponse> call, Throwable t) {
+
+            }
+        });
     }
+
 
 }
