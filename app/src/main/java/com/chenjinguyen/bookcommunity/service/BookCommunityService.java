@@ -24,4 +24,6 @@ public interface BookCommunityService {
     @POST("signup/")
     Call<AuthResponse> signup(@Query("username") String username, @Query("email") String email, @Query("password") String password, @Query("name") String name, @Query("birthday") String birthday, @Query("gender") String gender);
 
+    @GET("book/search")
+    Call<BooksResponse> searchBook(@Query("title")String keyword);
 }

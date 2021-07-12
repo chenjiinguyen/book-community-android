@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenjinguyen.bookcommunity.BuildConfig;
@@ -66,20 +68,39 @@ public class ApiService {
         });
     }
 
-    public void getSearchBook(RecyclerView recyclerView, View v) {
-        service.allBook().enqueue(new Callback<BooksResponse>() {
+    public void SearchActivity(View v) {
+        SearchView searchView= v.findViewById(R.id.searchtruyen);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
-                ArrayList<BookModel> data = response.body().getBooks();
-                BookAdapter adapter = new BookAdapter(v.getContext(), data, 2);
-                recyclerView.setAdapter(adapter);
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
             }
 
             @Override
-            public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Log.e("chenjinguyen", t.getMessage());
+            public boolean onQueryTextChange(String newText) {
+                Log.e("LOIIII",newText);
+                service.searchBook(newText).enqueue(new Callback<BooksResponse>() {
+                    @Override
+                    public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
+
+                        RecyclerView recyclerView= v.findViewById(R.id.rcls);
+                        ArrayList<BookModel> data = response.body().getBooks();
+                        Log.e("LOI",response.body().getBooks().size()+"");
+                        BookAdapter adapter = new BookAdapter(v.getContext(), data, 2);
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
+                    }
+
+                    @Override
+                    public void onFailure(Call<BooksResponse> call, Throwable t) {
+                        Log.e("chenjinguyen", t.getMessage());
+                    }
+                });
+                return false;
             }
         });
+
     }
 
     public void getBookDetail(int id, View v) {
