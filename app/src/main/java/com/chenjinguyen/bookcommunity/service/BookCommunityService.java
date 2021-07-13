@@ -34,4 +34,7 @@ public interface BookCommunityService {
 
     @GET("me/point")
     Call<PointResponse> mePoint(@Header("Authorization") String bearer);
+
+    @GET("book/search")
+    Call<BooksResponse> searchBook(@Query("title")String keyword);
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <!-- Set the border line width and color -->
+            <stroke
+
+                android:width="0.5dp"
+                android:color="#ffffff" >
+            </stroke>
+            <!-- Set the number of round angles -->
+            <corners  android:topLeftRadius="30dp"
+            android:topRightRadius="30dp"
+            android:bottomLeftRadius="30dp"
+            android:bottomRightRadius="30dp" />
+            <!-- Set the background color -->
+            <solid android:color="#ffffff" />
+            <!-- padding: set margins -->
+            <padding
+                android:bottom="5dp"
+                android:left="5dp"
+                android:right="5dp"
+                android:top="5dp" >
+            </padding>
+        </shape>
+    </item>
+
+    <!-- The second group of items: set the spinner arrow picture (replace the default arrow) -->
+
+</layer-list>

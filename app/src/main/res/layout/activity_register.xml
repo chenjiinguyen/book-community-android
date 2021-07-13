@@ -4,139 +4,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity"
+    android:background="#EEEEEE"
     android:orientation="vertical"
     android:weightSum="10"
-android:background="#EEEEEE"
-    >
+    tools:context=".activity.LoginActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="#CCCCCC"
-        app:titleTextColor="#CCCCCC"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"></androidx.appcompat.widget.Toolbar>
+        app:titleTextColor="#CCCCCC"></androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="8"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_weight="2"
-
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:paddingRight="50dp"
+            android:paddingLeft="50dp"
+            android:layout_height="0dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_weight="1">
 
             <TextView
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="100dp"
-                android:textSize="40dp"
-                android:textColor="#FF0000"
-                android:text="CREATE ACOUNT"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></TextView>
+                android:layout_height="wrap_content"
+                android:text="CREATE ACOUNT"
+                android:textColor="#FF0000"
+                android:textSize="40dp"></TextView>
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="4"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:paddingRight="50dp"
+            android:paddingLeft="50dp"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:orientation="vertical">
+
             <EditText
-                android:drawableLeft="@drawable/ic_baseline_account_box_24"
-                android:hint=" User name"
                 android:id="@+id/editext_username"
-                android:layout_marginLeft="30dp"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:paddingLeft="15dp"
                 android:background="@drawable/trangtri"
-                ></EditText>
-            <EditText
-                android:layout_marginTop="10dp"
                 android:drawableLeft="@drawable/ic_baseline_account_box_24"
-                android:hint=" Your name"
-                android:id="@+id/editext_name"
-                android:layout_marginLeft="30dp"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:background="@drawable/trangtri"
-                ></EditText>
+                android:hint=" User name"></EditText>
+
             <EditText
+                android:paddingLeft="15dp"
+                android:id="@+id/editext_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/trangtri"
+                android:drawableLeft="@drawable/ic_baseline_account_box_24"
+                android:hint=" Your name"></EditText>
+
+            <EditText
+                android:paddingLeft="15dp"
+                android:id="@+id/editext_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/trangtri"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:hint=" Email"
-                android:id="@+id/editext_email"
-                android:layout_marginLeft="30dp"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:background="@drawable/trangtri"
-                app:layout_constraintTop_toBottomOf="@+id/editextusername"
-                ></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/editextusername"></EditText>
 
             <EditText
-
+                android:paddingLeft="15dp"
+                android:id="@+id/edittext_pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/trangtri"
                 android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
                 android:hint=" Password"
-                android:layout_marginTop="10dp"
-                android:id="@+id/edittext_pass"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:background="@drawable/trangtri"
 
                 app:layout_constraintTop_toBottomOf="@+id/editextemail"></EditText>
 
             <EditText
-
-                android:drawableLeft="@drawable/ic_baseline_date_range_24"
-                android:hint=" Birthday"
-                android:layout_marginTop="10dp"
+                android:paddingLeft="15dp"
                 android:id="@+id/edittext_birthday"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/trangtri"
                 android:datePickerMode="calendar"
+                android:drawableLeft="@drawable/ic_baseline_date_range_24"
+                android:hint=" Birthday"
                 app:layout_constraintTop_toBottomOf="@+id/editextemail"></EditText>
-<LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="18dp"
-        android:text="Gender"
-        android:layout_width="100dp"
-        android:layout_height="50dp"></TextView>
-    <Spinner
-        android:layout_marginTop="10dp"
-        android:id="@+id/spinner_gender"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        />
-</LinearLayout>
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+
+                    <Spinner
+
+                        android:background="@drawable/spinner_border"
+                        android:id="@+id/spinner_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingRight="50dp"
+        android:paddingLeft="50dp"
         android:orientation="vertical">
+
         <Button
-            android:layout_marginLeft="30dp"
             android:id="@+id/btn_singin"
-            android:backgroundTint="#FF3333"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:text="SIGN IN"
-            ></Button>
+
+            android:backgroundTint="#FF3333"
+            android:text="SIGN IN"></Button>
 
     </LinearLayout>
 </LinearLayout>
