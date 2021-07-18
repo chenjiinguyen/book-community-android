@@ -45,7 +45,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
 
     @Override
-    public void onBindViewHolder(@NonNull BookAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BookModel book = mBooks.get(position);
 
         Picasso.get().load(book.getPoster()).fit().centerCrop().into(holder.imgPoster);
@@ -53,13 +53,29 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         holder.txtAuthor.setText(book.getAuthor());
 
         if(type == 2){
-            holder.txtCategory.setText(book.getCategory());
+            String category;
+            switch (book.getCategory()){
+                case "TEXT":
+                    category = "Truyện Chữ";
+                    break;
+                case "IMAGE":
+                    category = "Truyện Tranh";
+                    break;
+                case "AUDIO":
+                    category = "Truyện Audio";
+                    break;
+                default:
+                    category = "Truyện";
+                    break;
+            }
+            holder.txtCategory.setText(category);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent t = new Intent(v.getContext(), DetailActivity.class);
+                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 t.putExtra("id",book.getId());
                 v.getContext().startActivity(t);
             }

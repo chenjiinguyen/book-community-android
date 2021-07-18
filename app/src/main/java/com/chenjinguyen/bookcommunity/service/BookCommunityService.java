@@ -3,14 +3,19 @@ package com.chenjinguyen.bookcommunity.service;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
+import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
+import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 
 import java.util.Date;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface BookCommunityService {
@@ -21,10 +26,12 @@ public interface BookCommunityService {
     Call<BookResponse> detailBook(@Query("id") int id);
 
     @POST("signin/")
-    Call<AuthResponse> signin(@Query("username") String username, @Query("password") String password, @Query("remember") boolean remember);
+    @FormUrlEncoded
+    Call<AuthResponse> signin(@Field("username") String username, @Field("password") String password, @Field("remember") boolean remember);
 
     @POST("signup/")
-    Call<AuthResponse> signup(@Query("username") String username, @Query("email") String email, @Query("password") String password, @Query("name") String name, @Query("birthday") String birthday, @Query("gender") String gender);
+    @FormUrlEncoded
+    Call<AuthResponse> signup(@Field("username") String username, @Field("email") String email, @Field("password") String password, @Field("name") String name, @Field("birthday") String birthday, @Field("gender") String gender);
 
     @GET("me/")
     Call<AuthResponse> me(@Header("Authorization") String bearer);
@@ -37,4 +44,13 @@ public interface BookCommunityService {
 
     @GET("book/search")
     Call<BooksResponse> searchBook(@Query("title")String keyword);
+
+    @GET("book/{book}/episode")
+    Call<EpisodesReponse> getEpisodeOfBook(@Path("book") int id);
+
+    @GET("episode/{episode}")
+    Call<EpisodeReponse> getEpisode(@Path("episode") int id);
+
+    @GET("book/category/{category}")
+    Call<BooksResponse> getBookCategory(@Path("category") String category);
 }

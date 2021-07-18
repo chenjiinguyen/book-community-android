@@ -15,10 +15,11 @@
         android:theme="@style/Theme.BookCommunity"
         android:usesCleartextTraffic="true">
         <activity android:name=".activity.ListofWorksPostedActivity"></activity>
+        <activity android:name=".activity.LogoutActivity"></activity>
         <activity android:name=".activity.PointHistoryActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.SearchActivity"/>
-        <activity android:name=".activity.EpisodeTextActivity"/>
+        <activity android:name=".activity.EpisodeActivity"/>
         <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />

@@ -1,7 +1,6 @@
 package com.chenjinguyen.bookcommunity.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,44 +16,36 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenjinguyen.bookcommunity.R;
-import com.chenjinguyen.bookcommunity.activity.DetailActivity;
-import com.chenjinguyen.bookcommunity.activity.SearchActivity;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
 import com.chenjinguyen.bookcommunity.model.BookModel;
+import com.chenjinguyen.bookcommunity.model.EpisodeModel;
 import com.chenjinguyen.bookcommunity.service.ApiService;
 
 import java.util.ArrayList;
 
-import at.markushi.ui.CircleButton;
-import retrofit2.Retrofit;
+public class EpisodeTextFragment extends Fragment {
 
-public class HomeFragment extends Fragment {
-    CircleButton search_button;
+    private EpisodeModel episode;
+
+    public EpisodeTextFragment(EpisodeModel episode) {
+        this.episode = episode;
+    }
+
     ApiService apiService;
     SharedPreferences dataLocal;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home,container,false);
+        View v = inflater.inflate(R.layout.fragment_episode_text,container,false);
         apiService = new ApiService();
 
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
-        TextView wellcome_name = v.findViewById(R.id.wellcome_name);
-        wellcome_name.setText("Chào "+ dataLocal.getString("name", "Bạn"));
-
-        apiService.HomeFragment(v);
-
-        search_button = v.findViewById(R.id.search_button);
-        search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent t = new Intent(v.getContext(), SearchActivity.class);
-                v.getContext().startActivity(t);
-            }
-        });
-
+        String token = dataLocal.getString("token","");
+//        apiService.EpisodeTextFragment(token,id,v);
+        String content = episode.getContent().get(0);
+        TextView episode_text_content = v.findViewById(R.id.episode_text_content);
+        episode_text_content.setText(content);
         return v;
     }
-
 
 }

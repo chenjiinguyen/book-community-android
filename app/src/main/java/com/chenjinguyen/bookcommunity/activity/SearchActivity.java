@@ -1,9 +1,6 @@
 package com.chenjinguyen.bookcommunity.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 
 
