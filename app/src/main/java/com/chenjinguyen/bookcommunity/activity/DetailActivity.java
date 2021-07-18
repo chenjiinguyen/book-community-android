@@ -31,7 +31,10 @@ public class DetailActivity extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetailActivity.this.finish();
+                Intent t = new Intent(v.getContext(), HomeActivity.class);
+                t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                v.getContext().startActivity(t);
+                return;
             }
         });
 
