@@ -19,6 +19,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".activity.ChangePasswordActivity"></activity>
         <activity android:name=".activity.PersionalInfoActivity" />
+        <activity android:name=".activity.CommentActivity"></activity>
         <activity android:name=".activity.ListofWorksPostedActivity" />
         <activity android:name=".activity.LogoutActivity" />
         <activity android:name=".activity.PointHistoryActivity" />
