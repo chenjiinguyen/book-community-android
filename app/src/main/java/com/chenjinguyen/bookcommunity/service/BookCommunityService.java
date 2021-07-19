@@ -3,6 +3,8 @@ package com.chenjinguyen.bookcommunity.service;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
+import com.chenjinguyen.bookcommunity.model.Response.CommentResponse;
+import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
@@ -53,4 +55,10 @@ public interface BookCommunityService {
 
     @GET("book/category/{category}")
     Call<BooksResponse> getBookCategory(@Path("category") String category);
+
+    @GET("book/{book}/comment/")
+    Call<CommentsResponse> getCommentBook(@Path("book") int id);
+
+    @POST("comment/")
+    Call<CommentResponse> commentBook(@Field("idbook") int idbook, @Field("content") String content);
 }

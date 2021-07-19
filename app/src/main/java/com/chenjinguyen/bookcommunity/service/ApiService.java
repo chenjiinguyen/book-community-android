@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,16 +31,19 @@ import com.chenjinguyen.bookcommunity.activity.LogoutActivity;
 import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
 import com.chenjinguyen.bookcommunity.activity.RegisterActivity;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
+import com.chenjinguyen.bookcommunity.adapter.CommentAdapter;
 import com.chenjinguyen.bookcommunity.adapter.InfoAccountAdapter;
 import com.chenjinguyen.bookcommunity.adapter.MyPointAdapter;
 import com.chenjinguyen.bookcommunity.dialog.BottomEpisodeDialog;
 import com.chenjinguyen.bookcommunity.model.BookModel;
+import com.chenjinguyen.bookcommunity.model.CommentModel;
 import com.chenjinguyen.bookcommunity.model.EpisodeModel;
 import com.chenjinguyen.bookcommunity.model.InfoAccount;
 import com.chenjinguyen.bookcommunity.model.PointModel;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
+import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
@@ -523,6 +527,7 @@ public class ApiService {
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 ArrayList<BookModel> books = response.body().getBooks();
                 BookAdapter bookAdapter = new BookAdapter(v.getContext(),books,2);
+
                 recyclerView.setAdapter(bookAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
             }
@@ -612,6 +617,39 @@ public class ApiService {
         });
 
     }
+
+    public void setCommentData(String bearer,int id,View v){
+        service.getCommentBook(id).enqueue(new Callback<CommentsResponse>() {
+            @Override
+            public void onResponse(Call<CommentsResponse> call, Response<CommentsResponse> response) {
+
+
+                    boolean success = response.body().isSuccess();
+                    if(success) {
+
+                        ArrayList<CommentModel> comments = response.body().getDatacomment();
+                        CommentAdapter commentAdapter = new CommentAdapter(v.getContext(),comments);
+                        RecyclerView recyclerView= v.findViewById(R.id.rv_comment);
+                        recyclerView.setAdapter(commentAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
+                        TextView txt_username=  v.findViewById(R.id.txt_username);
+                        TextView txt_content=  v.findViewById(R.id.txt_content);
+                        TextView txt_datecomment=  v.findViewById(R.id.txt_datecomment);
+                        ImageView img_user=v.findViewById(R.id.imguser);
+
+
+
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<CommentsResponse> call, Throwable t) {
+
+            }
+        });
+
+        }
+
 
 
 }
