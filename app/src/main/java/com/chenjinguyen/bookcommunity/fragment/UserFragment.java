@@ -50,7 +50,10 @@ public class UserFragment extends Fragment {
         String token = dataLocal.getString("token","");
         apiService.UserFragment(token, v);
 
+
+
         return v;
+
 
 
 

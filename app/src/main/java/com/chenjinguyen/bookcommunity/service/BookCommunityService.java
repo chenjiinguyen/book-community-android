@@ -42,6 +42,10 @@ public interface BookCommunityService {
     @GET("me/point")
     Call<PointResponse> mePoint(@Header("Authorization") String bearer);
 
+    @POST("me/point/create")
+    @FormUrlEncoded
+    Call<PointResponse> mePointCreate(@Header("Authorization") String bearer, @Field("idepisode") int idepisode, @Field("charge") boolean charge, @Field("point") int point);
+
     @GET("book/search")
     Call<BooksResponse> searchBook(@Query("title")String keyword);
 
@@ -53,4 +57,9 @@ public interface BookCommunityService {
 
     @GET("book/category/{category}")
     Call<BooksResponse> getBookCategory(@Path("category") String category);
+
+    @POST("me/update/name")
+    @FormUrlEncoded
+    Call<AuthResponse> upDateName(@Header("Authorization") String bearer, @Field("name") String name);
+
 }

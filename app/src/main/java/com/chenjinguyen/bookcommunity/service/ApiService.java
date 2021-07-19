@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.chenjinguyen.bookcommunity.activity.HomeActivity;
 import com.chenjinguyen.bookcommunity.activity.ListofWorksPostedActivity;
 import com.chenjinguyen.bookcommunity.activity.LoginActivity;
 import com.chenjinguyen.bookcommunity.activity.LogoutActivity;
+import com.chenjinguyen.bookcommunity.activity.PersionalInfoActivity;
 import com.chenjinguyen.bookcommunity.activity.PointHistoryActivity;
 import com.chenjinguyen.bookcommunity.activity.RegisterActivity;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
@@ -46,6 +48,10 @@ import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 import com.chenjinguyen.bookcommunity.model.UserModel;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -314,9 +320,20 @@ public class ApiService {
                        UserModel userModel = response.body().getUser();
                        TextView tvName = v.findViewById(R.id.tvName);
                        ImageView imgAvt = v.findViewById(R.id.imageView);
+                       //ImageView imgEdit = v.findViewById(R.id.imgEdit);
 
                        tvName.setText(userModel.getName());
                        Picasso.get().load(userModel.getAvatar()).fit().centerCrop().into(imgAvt);
+
+//                       imgEdit.setOnClickListener(new View.OnClickListener() {
+//                           @Override
+//                           public void onClick(View v) {
+//                               Intent t = new Intent(v.getContext(), PersionalInfoActivity.class);
+////                               t.putExtra("episode",episode);
+////                               t.putExtra("book",book);
+//                               v.getContext().startActivity(t);
+//                           }
+//                       });
                    }
                    else {
                        Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -371,6 +388,8 @@ public class ApiService {
                     boolean success = response.body().isSuccess();
 
                     if(success) {
+                        InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_drive_file_rename_outline_24, "Chỉnh sửa thông tin cá nhân",PersionalInfoActivity .class));
+
                         InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_account_circle_24, "Đăng xuất",LogoutActivity .class));
 
                         UserModel userModel = response.body().getUser();
@@ -497,6 +516,7 @@ public class ApiService {
 
             }
         });
+
     }
 
     public void CategoryFragment(View v){
@@ -613,5 +633,80 @@ public class ApiService {
 
     }
 
+    public void EpisodeFragmentText(String bearer, int idEpdi, View v) {
+        ScrollView scrollEpiText = v.findViewById(R.id.scrollEpiText);
+        scrollEpiText.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                View view = (View) scrollEpiText.getChildAt(scrollEpiText.getChildCount() - 1);
+                int diff = (view.getBottom() - (scrollEpiText.getHeight() + scrollEpiText.getScrollY()));
+
+                // if diff is zero, then the bottom has been reached
+                if (diff == 0) {
+                    // do stuff
+                    service.mePointCreate(bearer, idEpdi, true, 5).enqueue(new Callback<PointResponse>() {
+                        @Override
+                        public void onResponse(Call<PointResponse> call, Response<PointResponse> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<PointResponse> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void ChangeNameDialog(String bearer, String name, View v) {
+        service.upDateName(bearer, name).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void PersionalInfoActivity(String bearer, View v) {
+        service.me(bearer).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                TextView tvName = v.findViewById(R.id.tvUserName);
+                TextView tvBirth = v.findViewById(R.id.tvBirth);
+                TextView tvGender = v.findViewById(R.id.tvGender);
+                TextView tvMail = v.findViewById(R.id.tvMail);
+                ImageView imgAvatar = v.findViewById(R.id.imageView);
+
+
+                UserModel userModel = response.body().getUser();
+                tvName.setText(userModel.getName());
+
+                tvGender.setText(userModel.getGender());
+                tvMail.setText(userModel.getEmail());
+                Picasso.get().load(userModel.getAvatar()).fit().centerCrop().into(imgAvatar);
+
+                Date date = null;
+                try {
+                    date = new SimpleDateFormat("yyyy-MM-dd").parse(userModel.getBirthday());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String formattedDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+                tvBirth.setText(formattedDate);
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

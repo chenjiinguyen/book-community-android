@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".activity.PersionalInfoActivity">
+
+    <TextView
+        android:id="@+id/txtThongTinCN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="THÔNG TIN CÁ NHÂN"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+    <View
+        android:id="@+id/view0"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/txtThongTinCN"
+        android:layout_marginTop="5dp"
+        android:background="#c2c1be" />
+
+      <TextView android:layout_marginTop="10dp"
+        android:layout_below="@id/view0"
+        android:id="@+id/tvTitleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Biệt danh"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/montserrat"
+        />
+    <ImageView
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_toLeftOf="@+id/tvUserName"
+        android:layout_alignTop="@id/tvUserName"
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/view0"
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="Diep Ha Nhi"
+        android:fontFamily="@font/montserrat"
+        />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tvTitleName"
+        android:layout_marginTop="10dp"
+        android:background="#c2c1be" />
+
+    <TextView
+        android:layout_below="@+id/view1"
+        android:id="@+id/tvTitleGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giới tính"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/montserrat"
+        />
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/view1"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:text="Nữ"
+        android:fontFamily="@font/montserrat"
+        />
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tvTitleGender"
+        android:layout_marginTop="10dp"
+        android:background="#c2c1be" />
+
+    <TextView
+        android:layout_below="@+id/view2"
+        android:id="@+id/tvTitleBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày sinh"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/montserrat"
+        />
+    <TextView
+        android:id="@+id/tvBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/view2"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="07/11/2000"
+        android:fontFamily="@font/montserrat"
+        />
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tvTitleBirth"
+        android:layout_marginTop="10dp"
+        android:background="#c2c1be" />
+    <TextView
+        android:layout_below="@+id/view3"
+        android:id="@+id/tvTitleMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/montserrat"
+        />
+    <TextView
+        android:id="@+id/tvMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/view3"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="nhuquynh@gmail.com"
+        android:fontFamily="@font/montserrat"
+        />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tvTitleMail"
+        android:layout_marginTop="10dp"
+        android:background="#c2c1be" />
+    <TextView
+        android:layout_below="@+id/view4"
+        android:id="@+id/tvTitleAvt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ảnh"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/montserrat"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_toLeftOf="@id/imageView"
+        android:layout_alignTop="@id/imageView"
+        />
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/imageView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/view4"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/avatar"
+
+        />
+    <View
+        android:id="@+id/view5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="10dp"
+        android:background="#c2c1be" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/view5"
+        android:layout_marginTop="10dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_lock_24"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/tvChangePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đổi mật khẩu"
+            android:fontFamily="@font/montserrat"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

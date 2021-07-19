@@ -32,7 +32,7 @@ public class MyPointAdapter extends RecyclerView.Adapter<MyPointAdapter.KHUNGNHI
     @Override
     public void onBindViewHolder(@NonNull KHUNGNHIN holder, int position) {
         PointModel myAcc = data.get(position);
-        holder.tenTruyen.setText(myAcc.getBook());
+        holder.tenTruyen.setText(myAcc.getBook() +" - "+myAcc.getEpisode());
         holder.soDiem.setText(((myAcc.isCharge())?"+":"-")+myAcc.getPoint());
 
     }
