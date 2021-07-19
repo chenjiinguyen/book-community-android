@@ -21,5 +21,11 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="CornerDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:alertDialogStyle">@style/dialog</item>
+    </style>
+
+
+
 
 </resources>

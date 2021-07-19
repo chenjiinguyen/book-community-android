@@ -22,10 +22,27 @@
                 android:layout_marginTop="30dp"
                 android:paddingHorizontal="30dp"
                 android:orientation="vertical">
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    app:srcCompat="@drawable/logo"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/logo"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/search_button"
+                        android:layout_width="50dip"
+                        android:layout_height="50dip"
+                        android:src="@drawable/ic_baseline_search_24"
+                        app:cb_color="#99CC00"
+                        android:layout_gravity="right"
+                        app:cb_pressedRingWidth="8dip" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/wellcome_name"
@@ -33,7 +50,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/dosis"
-                    android:text="Chào Duy Nguyễn"
+                    android:text="Chào Bạn"
                     android:textFontWeight="800"
                     android:textSize="25dp" />
                 <TextView
@@ -114,7 +131,82 @@
                     />
 
             </RelativeLayout>
+            <LinearLayout
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:padding="30dp">
+                <TextView
+                    android:id="@+id/category_imagebook_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/dosis"
+                    android:textFontWeight="700"
+                    android:text="TRUYỆN TRANH"
+                    android:textSize="18dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category_imagebook_list"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_below="@id/category_imagebook_title"
+                    />
 
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:padding="30dp">
+                <TextView
+                    android:id="@+id/category_audiobook_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/dosis"
+                    android:textFontWeight="700"
+                    android:text="TRUYỆN AUDIO"
+                    android:textSize="18dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/category_audiobook_list"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_below="@id/category_audiobook_title"
+                    />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="40dp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

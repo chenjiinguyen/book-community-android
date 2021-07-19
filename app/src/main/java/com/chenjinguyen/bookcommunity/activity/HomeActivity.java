@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chenjinguyen.bookcommunity.R;
+import com.chenjinguyen.bookcommunity.fragment.CategoryFragment;
 import com.chenjinguyen.bookcommunity.fragment.HomeFragment;
 import com.chenjinguyen.bookcommunity.fragment.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,6 +46,9 @@ public class HomeActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.nav_item_home:
                         fragment = new HomeFragment();
+                        break;
+                    case R.id.nav_item_category:
+                        fragment = new CategoryFragment();
                         break;
                     case R.id.nav_item_account:
                         fragment = new UserFragment();

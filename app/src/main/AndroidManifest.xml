@@ -3,7 +3,11 @@
     package="com.chenjinguyen.bookcommunity"
     android:targetSandboxVersion="1">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+    <!-- <uses-feature android:name="android.hardware.camera" /> -->
+    <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,12 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookCommunity"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.LogoutActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity"></activity>
+        <activity android:name=".activity.PersionalInfoActivity" />
         <activity android:name=".activity.ListofWorksPostedActivity" />
+        <activity android:name=".activity.LogoutActivity" />
         <activity android:name=".activity.PointHistoryActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.EpisodeTextActivity" />
+        <activity android:name=".activity.EpisodeActivity" />
         <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />

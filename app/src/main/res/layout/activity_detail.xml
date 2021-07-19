@@ -36,7 +36,7 @@
                         android:id="@+id/poster_book"
                         android:layout_width="200dp"
                         android:layout_height="300dp"
-                        app:srcCompat="@drawable/book" />
+                        android:src="@drawable/image_not_available" />
                 </androidx.cardview.widget.CardView>
                 <TextView
                     android:layout_marginTop="15dp"
@@ -92,6 +92,7 @@
                         android:textFontWeight="500"
                         android:text="Thể Loại"/>
                     <TextView
+                        android:id="@+id/category_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="25dp"
@@ -99,11 +100,20 @@
                         android:textFontWeight="800"
                         android:text="Truyện Chữ"/>
                 </LinearLayout>
+                <View
+                    android:id="@+id/middleInvisible"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    />
                 <LinearLayout
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/middleInvisible"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,6 +123,7 @@
                         android:textFontWeight="500"
                         android:text="Số Chương"/>
                     <TextView
+                        android:id="@+id/episode_count_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="25dp"
@@ -182,6 +193,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_bottom_panel_round_top_left">
                 <TextView
+                    android:id="@+id/read_first_text_book"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -189,6 +201,8 @@
                     android:textColor="@color/text_color_white"
                     android:fontFamily="@font/dosis"
                     android:textFontWeight="600"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:textSize="20dp"
                     android:text="ĐỌC CHƯƠNG 1"/>
             </RelativeLayout>

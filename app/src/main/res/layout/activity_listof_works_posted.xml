@@ -49,7 +49,7 @@
                             android:id="@+id/imageView"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginTop="-50dp"
+
                             android:src="@drawable/avatar"
 
                             />
@@ -76,6 +76,7 @@
                                 android:textStyle="bold" />
 
                             <ImageView
+                                android:id="@+id/imgEdit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/imageView"
@@ -86,16 +87,19 @@
                         </LinearLayout>
 
                         <TextView
+
+                            android:layout_below="@id/tvName"
                             android:id="@+id/tvds"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:layout_marginTop="130dp"
+                            android:layout_marginTop="150dp"
                             android:background="#FFCCCC"
                             android:gravity="center|left"
                             android:paddingLeft="10dp"
                             android:text="DANH SÁCH TRUYỆN ĐÃ ĐĂNG"
                             android:textColor="#fc1c03"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="NotSibling" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rclListofWorks"

@@ -35,6 +35,8 @@ public class PointHistoryActivity extends AppCompatActivity {
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
         String token = dataLocal.getString("token","");
         apiService.PointHistory(token,v);
+
+
 //
 //        data = new ArrayList<>();
 //        data.add(new PointModel("Điểm +4", "Thất Vương Phi báo thù Thất Vương Phi báo thù"));

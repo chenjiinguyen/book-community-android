@@ -1,6 +1,7 @@
 package com.chenjinguyen.bookcommunity.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,18 +17,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenjinguyen.bookcommunity.R;
+import com.chenjinguyen.bookcommunity.activity.DetailActivity;
+import com.chenjinguyen.bookcommunity.activity.SearchActivity;
 import com.chenjinguyen.bookcommunity.adapter.BookAdapter;
 import com.chenjinguyen.bookcommunity.model.BookModel;
 import com.chenjinguyen.bookcommunity.service.ApiService;
 
 import java.util.ArrayList;
 
+import at.markushi.ui.CircleButton;
 import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
-    RecyclerView trendingRecycler,textbookRecycler;
-    BookAdapter trendingAdapter;
-    ArrayList<BookModel> trendingBooks;
+    CircleButton search_button;
     ApiService apiService;
     SharedPreferences dataLocal;
     @Nullable
@@ -38,20 +40,21 @@ public class HomeFragment extends Fragment {
 
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
         TextView wellcome_name = v.findViewById(R.id.wellcome_name);
-        wellcome_name.setText("Chào "+ dataLocal.getString("name", "Khách"));
+        wellcome_name.setText("Chào "+ dataLocal.getString("name", "Bạn"));
 
-        trendingRecycler = v.findViewById(R.id.category_trending_list);
-        textbookRecycler = v.findViewById(R.id.category_textbook_list);
-        apiService.getAllBookRecycler(textbookRecycler,v);
-        apiService.getAllBookRecycler(trendingRecycler,v);
+        apiService.HomeFragment(v);
 
-        textbookRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false));
-        trendingRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false));
+        search_button = v.findViewById(R.id.search_button);
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent t = new Intent(v.getContext(), SearchActivity.class);
+                v.getContext().startActivity(t);
+            }
+        });
 
         return v;
     }
 
-    public void getApi(View v){
 
-    }
 }
