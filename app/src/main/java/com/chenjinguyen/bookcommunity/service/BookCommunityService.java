@@ -60,5 +60,9 @@ public interface BookCommunityService {
     Call<CommentsResponse> getCommentBook(@Path("book") int id);
 
     @POST("comment/")
-    Call<CommentResponse> commentBook(@Field("idbook") int idbook, @Field("content") String content);
+    @FormUrlEncoded
+    Call<CommentResponse> postcommentBook(@Header("Authorization") String bearer,@Field("idbook") int idbook, @Field("content") String content);
+
+    @GET("me/book/favorite/")
+    Call<BookResponse> getfavorite(@Header("Authorization") String bearer);
 }

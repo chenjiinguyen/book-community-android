@@ -151,4 +151,6 @@
     <color name="secondary_color">#2A9D8F</color>
     <color name="text_color_white">#FFFFFF</color>
     <color name="foreign_color">#a8dadc</color>
+    <color name="button_favorite_active">#FF3F00</color>
+    <color name="button_favorite_unactive">#FE9898</color>
 </resources>

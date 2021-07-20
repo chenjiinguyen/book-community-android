@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.chenjinguyen.bookcommunity.activity.CommentActivity;
 import com.chenjinguyen.bookcommunity.activity.HomeActivity;
 import com.chenjinguyen.bookcommunity.fragment.HomeFragment;
 import com.chenjinguyen.bookcommunity.fragment.UserFragment;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent t = new Intent(this, HomeActivity.class);
+        Intent t = new Intent(this, CommentActivity.class);
         t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(t);
 

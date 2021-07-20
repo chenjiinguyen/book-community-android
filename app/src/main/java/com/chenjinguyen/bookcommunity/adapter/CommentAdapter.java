@@ -18,7 +18,11 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     private Context mContext;
@@ -45,12 +49,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         CommentModel myComment = mComment.get(position);
-        holder.txt_username.setText(myComment.getIduser());
-        holder.txt_datecomment.setText(myComment.getCreatedAt());
-        holder.txt_content.setText(myComment.getContent());
-        Picasso.get().load(myComment.getAvartar()).fit().placeholder(R.drawable.icon_navbar_user).into(holder.avatar);
-    }
 
+
+
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(myComment.getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String formattedDate = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss").format(date);
+
+        holder.txt_datecomment.setText(formattedDate);
+        holder.txt_username.setText(myComment.getName());
+        holder.txt_content.setText(myComment.getContent());
+        Picasso.get().load(myComment.getAvartar()).fit().placeholder(R.drawable.default_avatar).into(holder.avatar);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txt_username,txt_content,txt_datecomment;

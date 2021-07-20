@@ -7,12 +7,16 @@
     tools:context=".activity.DetailActivity">
 
     <ScrollView
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true"
-        android:layout_above="@+id/navbar_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/navbar_detail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="-4dp"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
@@ -20,155 +24,194 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+<LinearLayout
+    android:paddingTop="10dp"
+    android:paddingLeft="350dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <at.markushi.ui.CircleButton
+
+        android:id="@+id/heart_button"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        app:cb_color="#FE9898"
+        android:layout_gravity="right"
+        app:cb_pressedRingWidth="8dip" />
+</LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="10dp">
+
                 <androidx.cardview.widget.CardView
-                    android:layout_centerHorizontal="true"
                     android:id="@+id/card_view"
-                    android:layout_alignParentTop="true"
                     android:layout_width="200dp"
                     android:layout_height="300dp"
-                    app:cardCornerRadius="20dp"
-                    android:background="@color/primary_color">
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/primary_color"
+                    app:cardCornerRadius="20dp">
+
                     <ImageView
                         android:id="@+id/poster_book"
                         android:layout_width="200dp"
                         android:layout_height="300dp"
                         android:src="@drawable/image_not_available" />
+
+
                 </androidx.cardview.widget.CardView>
+
                 <TextView
-                    android:layout_marginTop="15dp"
-                    android:layout_centerHorizontal="true"
                     android:id="@+id/title_book"
-                    android:layout_below="@id/card_view"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:fontFamily="@font/dosis"
-                    android:textFontWeight="800"
-                    android:textSize="20dp"
-                    android:singleLine="true"
-                    android:text="Tôi thấy hoa vàng trên cỏ xanh"/>
-                <TextView
+                    android:layout_below="@id/card_view"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/dosis"
+                    android:singleLine="true"
+                    android:text="Tôi thấy hoa vàng trên cỏ xanh"
+                    android:textFontWeight="800"
+                    android:textSize="20dp" />
+
+                <TextView
                     android:id="@+id/author_book"
-                    android:layout_below="@id/title_book"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:textSize="18dp"
+                    android:layout_below="@id/title_book"
+                    android:layout_centerHorizontal="true"
                     android:fontFamily="@font/dosis"
+                    android:text="Nguyễn Nhật Ánh"
                     android:textFontWeight="500"
-                    android:text="Nguyễn Nhật Ánh"/>
+                    android:textSize="18dp" />
             </RelativeLayout>
+
             <LinearLayout
-                android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:orientation="vertical"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:orientation="vertical">
+                android:paddingRight="20dp">
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"/>
+                    android:background="@android:color/darker_gray" />
             </LinearLayout>
+
             <RelativeLayout
-                android:paddingHorizontal="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="20dp">
+
                 <LinearLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
                         android:fontFamily="@font/dosis"
+                        android:text="Thể Loại"
                         android:textFontWeight="500"
-                        android:text="Thể Loại"/>
+                        android:textSize="18dp" />
+
                     <TextView
                         android:id="@+id/category_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
                         android:fontFamily="@font/dosis"
+                        android:text="Truyện Chữ"
                         android:textFontWeight="800"
-                        android:text="Truyện Chữ"/>
+                        android:textSize="25dp" />
                 </LinearLayout>
+
                 <View
                     android:id="@+id/middleInvisible"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    />
+                    android:layout_marginLeft="10dp" />
+
                 <LinearLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_toRightOf="@id/middleInvisible"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
                         android:fontFamily="@font/dosis"
+                        android:text="Số Chương"
                         android:textFontWeight="500"
-                        android:text="Số Chương"/>
+                        android:textSize="18dp" />
+
                     <TextView
                         android:id="@+id/episode_count_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
                         android:fontFamily="@font/dosis"
+                        android:text="12"
                         android:textFontWeight="800"
-                        android:text="12"/>
+                        android:textSize="25dp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15dp"
                         android:fontFamily="@font/dosis"
+                        android:text="Lượt Xem"
                         android:textFontWeight="500"
-                        android:text="Lượt Xem"/>
+                        android:textSize="15dp" />
+
                     <TextView
                         android:id="@+id/view_book"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25dp"
                         android:fontFamily="@font/dosis"
+                        android:text="150"
                         android:textFontWeight="800"
-                        android:text="150"/>
+                        android:textSize="25dp" />
                 </LinearLayout>
+
             </RelativeLayout>
-            <RelativeLayout
-                android:padding="20dp"
+
+            <com.google.android.material.tabs.TabLayout
+                app:tabTextColor="#FFFF"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/description_book"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:fontFamily="@font/dosis"
-                    android:textFontWeight="500"
-                    android:text=""/>
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:background="#000"></com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="455dp"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+                tools:layout_editor_absoluteX="8dp"></androidx.viewpager.widget.ViewPager>
+
+
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/navbar_detail"
         android:layout_alignParentLeft="true"

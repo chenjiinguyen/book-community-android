@@ -43,6 +43,7 @@ import com.chenjinguyen.bookcommunity.model.PointModel;
 import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
+import com.chenjinguyen.bookcommunity.model.Response.CommentResponse;
 import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
@@ -180,42 +181,62 @@ public class ApiService {
 
     }
 
-    public void DetailActivity(int id, View v) {
+    public void DetailFragment(int id,View v){
         service.detailBook(id).enqueue(new Callback<BookResponse>() {
             @Override
             public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
                 BookModel book = response.body().getData();
-
-                TextView title_book = v.findViewById(R.id.title_book);
-                TextView author_book = v.findViewById(R.id.author_book);
                 TextView description_book = v.findViewById(R.id.description_book);
-                TextView episode_count_book = v.findViewById(R.id.episode_count_book);
-                TextView category_book = v.findViewById(R.id.category_book);
-                TextView view_book = v.findViewById(R.id.view_book);
-                ImageView poster_book = v.findViewById(R.id.poster_book);
-
-                Picasso.get().load(book.getPoster()).fit().centerCrop().into(poster_book);
-                title_book.setText(book.getTitle());
-                author_book.setText(book.getAuthor());
                 description_book.setText(book.getDescription());
-                view_book.setText(book.getView() + "");
+            }
 
-                String category;
-                switch (book.getCategory()){
-                    case "TEXT":
-                        category = "Truyện Chữ";
-                        break;
-                    case "IMAGE":
-                        category = "Truyện Tranh";
-                        break;
-                    case "AUDIO":
-                        category = "Truyện Audio";
-                        break;
-                    default:
-                        category = "Truyện";
-                        break;
-                }
-                category_book.setText(category);
+            @Override
+            public void onFailure(Call<BookResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void DetailActivity(int id, View v) {
+        service.detailBook(id).enqueue(new Callback<BookResponse>() {
+            @Override
+            public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
+
+                    BookModel book = response.body().getData();
+
+                    TextView title_book = v.findViewById(R.id.title_book);
+                    TextView author_book = v.findViewById(R.id.author_book);
+                    TextView description_book = v.findViewById(R.id.description_book);
+                    TextView episode_count_book = v.findViewById(R.id.episode_count_book);
+                    TextView category_book = v.findViewById(R.id.category_book);
+                    TextView view_book = v.findViewById(R.id.view_book);
+                    ImageView poster_book = v.findViewById(R.id.poster_book);
+                        Log.e("id",id+"");
+                Log.e("gettitle",book.getTitle()+"");
+                    Picasso.get().load(book.getPoster()).fit().centerCrop().into(poster_book);
+                    title_book.setText(book.getTitle());
+
+                    author_book.setText(book.getAuthor());
+
+                    /*description_book.setText(book.getDescription());*/
+                    view_book.setText(book.getView() + "");
+
+                    String category;
+                    switch (book.getCategory()) {
+                        case "TEXT":
+                            category = "Truyện Chữ";
+                            break;
+                        case "IMAGE":
+                            category = "Truyện Tranh";
+                            break;
+                        case "AUDIO":
+                            category = "Truyện Audio";
+                            break;
+                        default:
+                            category = "Truyện";
+                            break;
+                    }
+                    category_book.setText(category);
 
 
                 service.getEpisodeOfBook(id).enqueue(new Callback<EpisodesReponse>() {
@@ -224,7 +245,7 @@ public class ApiService {
                         EpisodeModel episode = response.body().getData().get(0);
                         RelativeLayout read_first_button = v.findViewById(R.id.read_first_button_book);
                         TextView read_first_text = v.findViewById(R.id.read_first_text_book);
-                        Log.e("LOIIIII",Integer.toString(response.body().getData().size()));
+                        Log.e("LOIIIII", Integer.toString(response.body().getData().size()));
                         episode_count_book.setText(Integer.toString(response.body().getData().size()));
                         read_first_text.setText(("Đọc " + episode.getName()).toUpperCase());
 
@@ -232,8 +253,8 @@ public class ApiService {
                             @Override
                             public void onClick(View v) {
                                 Intent t = new Intent(v.getContext(), EpisodeActivity.class);
-                                t.putExtra("episode",episode);
-                                t.putExtra("book",book);
+                                t.putExtra("episode", episode);
+                                t.putExtra("book", book);
                                 v.getContext().startActivity(t);
                             }
                         });
@@ -554,7 +575,6 @@ public class ApiService {
             }
         });
 
-
     }
     public void EpisodeActivity(FragmentManager fm,EpisodeModel episode,BookModel book,View v){
         service.getEpisodeOfBook(book.getId()).enqueue(new Callback<EpisodesReponse>() {
@@ -618,28 +638,19 @@ public class ApiService {
 
     }
 
-    public void setCommentData(String bearer,int id,View v){
+    public void CommentActivity(String bearer,int id,View v){
         service.getCommentBook(id).enqueue(new Callback<CommentsResponse>() {
             @Override
             public void onResponse(Call<CommentsResponse> call, Response<CommentsResponse> response) {
-
-
-                    boolean success = response.body().isSuccess();
-                    if(success) {
-
-                        ArrayList<CommentModel> comments = response.body().getDatacomment();
-                        CommentAdapter commentAdapter = new CommentAdapter(v.getContext(),comments);
-                        RecyclerView recyclerView= v.findViewById(R.id.rv_comment);
-                        recyclerView.setAdapter(commentAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
-                        TextView txt_username=  v.findViewById(R.id.txt_username);
-                        TextView txt_content=  v.findViewById(R.id.txt_content);
-                        TextView txt_datecomment=  v.findViewById(R.id.txt_datecomment);
-                        ImageView img_user=v.findViewById(R.id.imguser);
-
-
-
-                    }
+               if(response.body().isSuccess()){
+                   ArrayList<CommentModel> comments = response.body().getDatacomment();
+                   CommentAdapter commentAdapter = new CommentAdapter(v.getContext(),comments);
+                   RecyclerView recyclerView= v.findViewById(R.id.rv_comment);
+                   recyclerView.setAdapter(commentAdapter);
+                   recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
+                   TextView txt_countcomment=v.findViewById(R.id.txt_count);
+                   txt_countcomment.setText(comments.size()+"");
+               }
             }
 
             @Override
@@ -650,6 +661,42 @@ public class ApiService {
 
         }
 
+    public void PostCommentFragment(String bearer, int id, String content, View v){
+        service.postcommentBook(bearer,id,content).enqueue(new Callback<CommentResponse>() {
 
+            @Override
+            public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+                boolean success = response.body().isSuccess();
+               
+                if (success) {
+                    Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    CommentActivity(bearer,id,v);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<CommentResponse> call, Throwable t) {
+                Log.e("loi",t.getMessage());
+            }
+        });
+
+    }
+
+    public void  GetFavorite(String bearer,View v){
+        service.getfavorite(bearer).enqueue(new Callback<BookResponse>() {
+            @Override
+            public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
+                boolean success = response.body().isSuccess();
+                if(success){
+                    Toast.makeText(v.getContext(), "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
