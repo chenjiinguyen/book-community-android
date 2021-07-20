@@ -41,7 +41,7 @@ public class EpisodeTextFragment extends Fragment {
 
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
         String token = dataLocal.getString("token","");
-//        apiService.EpisodeTextFragment(token,id,v);
+
         apiService.EpisodeFragmentText(token, episode.getEpisode_id(), v);
         String content = episode.getContent().get(0);
         TextView episode_text_content = v.findViewById(R.id.episode_text_content);

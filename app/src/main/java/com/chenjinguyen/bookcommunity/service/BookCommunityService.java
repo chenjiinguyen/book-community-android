@@ -5,6 +5,7 @@ import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
 import com.chenjinguyen.bookcommunity.model.Response.CommentResponse;
 import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
+import com.chenjinguyen.bookcommunity.model.Response.DeviceResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
@@ -69,4 +70,9 @@ public interface BookCommunityService {
 
     @POST("comment/")
     Call<CommentResponse> commentBook(@Field("idbook") int idbook, @Field("content") String content);
+
+    @POST("device/create")
+    @FormUrlEncoded
+    Call<DeviceResponse>  createDevice(@Field("token") String token);
+
 }

@@ -46,6 +46,7 @@ import com.chenjinguyen.bookcommunity.model.Response.AuthResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BookResponse;
 import com.chenjinguyen.bookcommunity.model.Response.BooksResponse;
 import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
+import com.chenjinguyen.bookcommunity.model.Response.DeviceResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
@@ -665,10 +666,45 @@ public class ApiService {
         });
     }
 
+    public void EpisodeFragmentImage(String bearer, int idEpi, View v) {
+        RecyclerView recyclerView = v.findViewById(R.id.episode_image_content);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    service.mePointCreate(bearer, idEpi, true, 5).enqueue(new Callback<PointResponse>() {
+                        @Override
+                        public void onResponse(Call<PointResponse> call, Response<PointResponse> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<PointResponse> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
     public void ChangeNameDialog(String bearer, String name, View v) {
         service.upDateName(bearer, name).enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+
+                boolean success = response.body().isSuccess();
+
+                if(success) {
+                    UserModel user = response.body().getUser();
+                    dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = dataLocal.edit();
+                    editor.putString("name", user.getName());
+                    editor.commit();
+                }
 
             }
 
@@ -745,6 +781,19 @@ public class ApiService {
 
         }
 
+    public  void importToken(String token){
+        service.createDevice(token).enqueue(new Callback<DeviceResponse>() {
+            @Override
+            public void onResponse(Call<DeviceResponse> call, Response<DeviceResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<DeviceResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 }

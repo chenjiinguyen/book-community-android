@@ -41,6 +41,9 @@ public class EpisodeImageFragment extends Fragment {
 
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
         String token = dataLocal.getString("token","");
+
+        apiService.EpisodeFragmentImage(token, episode.getEpisode_id(), v);
+
         RecyclerView recyclerView = v.findViewById(R.id.episode_image_content);
         ArrayList<String> content = episode.getContent();
         Log.e("LOIIIII",""+content.size());
