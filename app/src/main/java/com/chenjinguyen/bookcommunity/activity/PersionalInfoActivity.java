@@ -3,41 +3,24 @@ package com.chenjinguyen.bookcommunity.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chenjinguyen.bookcommunity.R;
 import com.chenjinguyen.bookcommunity.dialog.NameDialog;
 import com.chenjinguyen.bookcommunity.service.ApiService;
+import com.chenjinguyen.bookcommunity.util.FileUtil;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class PersionalInfoActivity extends AppCompatActivity {
 
@@ -46,6 +29,7 @@ public class PersionalInfoActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     ApiService apiService;
     SharedPreferences dataLocal;
+    String token;
     View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +39,7 @@ public class PersionalInfoActivity extends AppCompatActivity {
         apiService = new ApiService();
 
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
-        String token = dataLocal.getString("token","");
+        token = dataLocal.getString("token","");
         apiService.PersionalInfoActivity(token, v);
 
 
@@ -121,23 +105,33 @@ public class PersionalInfoActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imgAvt = findViewById(R.id.imageView);
+        Uri selectedImage = null;
         switch(requestCode) {
             case 0:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = data.getData();
                     imgAvt.setImageURI(selectedImage);
                 }
 
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
+                    selectedImage = data.getData();
                     imgAvt.setImageURI(selectedImage);
                 }
                 break;
         }
+
+            // Load image
+           if(selectedImage != null){
+                apiService.ChangeAvatar(token, selectedImage, v);
+           }
+
+
     }
 }

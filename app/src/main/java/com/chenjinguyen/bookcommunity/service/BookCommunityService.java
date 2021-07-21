@@ -12,12 +12,15 @@ import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 
 import java.util.Date;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -75,4 +78,11 @@ public interface BookCommunityService {
     @FormUrlEncoded
     Call<DeviceResponse>  createDevice(@Field("token") String token);
 
+    @POST("me/update/password")
+    @FormUrlEncoded
+    Call<AuthResponse>  changePassword(@Header("Authorization") String bearer,@Field("password") String password);
+
+    @Multipart
+    @POST("me/update/avatar")
+    Call<AuthResponse>  changeAvatar(@Header("Authorization") String bearer, @Part MultipartBody.Part avatar);
 }

@@ -1,13 +1,17 @@
 package com.chenjinguyen.bookcommunity.service;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -24,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenjinguyen.bookcommunity.BuildConfig;
 import com.chenjinguyen.bookcommunity.R;
+import com.chenjinguyen.bookcommunity.activity.ChangePasswordActivity;
 import com.chenjinguyen.bookcommunity.activity.EpisodeActivity;
 import com.chenjinguyen.bookcommunity.activity.HomeActivity;
 import com.chenjinguyen.bookcommunity.activity.ListofWorksPostedActivity;
@@ -51,10 +56,16 @@ import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 import com.chenjinguyen.bookcommunity.model.UserModel;
+import com.chenjinguyen.bookcommunity.util.FileUtil;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,6 +75,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -795,5 +809,79 @@ public class ApiService {
         });
     }
 
+    public void ChangePasswordActivity(String bearer, View v) {
+        EditText editNew = v.findViewById(R.id.tvNewPass);
+        EditText editConfirm = v.findViewById(R.id.tvConfirmPass);
+        Button btnSubmit = v.findViewById(R.id.btnSubmit);
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Log.e("nhuquynh", editNew.getText().toString().equals(editConfirm.getText().toString()) ? "True": "Fasle");
+                //Log.e("nhuquynh", editConfirm.getText().toString().length() + "");
+                if(editNew.getText().toString().equals(editConfirm.getText().toString())) {
+
+                    service.changePassword(bearer, editNew.getText().toString()).enqueue(new Callback<AuthResponse>() {
+                        @Override
+                        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+
+                            boolean success = response.body().isSuccess();
+                            if(success) {
+                                Toast.makeText(v.getContext(), "Đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+
+                                Intent t = new Intent(v.getContext(), HomeActivity.class);
+                                v.getContext().startActivity(t);
+                            }
+                            else {
+                                Toast.makeText(v.getContext(), "Quá trình thay đổi mật khẩu bị lỗi!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<AuthResponse> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+
+                else {
+                    Toast.makeText(v.getContext(), "Mật khẩu mới và mật khẩu hiện tại phải trùng nhau!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void ChangeAvatar(String Bearer, Uri uri, View v) {
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(v.getContext());
+        progressDialog.setMessage("Dang Upload");
+        progressDialog.show();
+        File file = new File(FileUtil.getPath(v.getContext(),uri));
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),file );
+        MultipartBody.Part body = MultipartBody.Part.createFormData("avatar",file.getName(), requestFile);
+        service.changeAvatar(Bearer, body).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                progressDialog.dismiss();
+                boolean success = response.body().isSuccess();
+                if(success) {
+                    ImageView imgAvt = v.findViewById(R.id.imageView);
+                    Picasso.get().load(response.body().getUser().getAvatar()).fit().centerCrop().into(imgAvt);
+                Toast.makeText(v.getContext(), "Đổi avatar thành công", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(v.getContext(), "Thất bại", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Log.e("nhuquynh", t.getMessage());
+            }
+        });
+    }
 
 }
