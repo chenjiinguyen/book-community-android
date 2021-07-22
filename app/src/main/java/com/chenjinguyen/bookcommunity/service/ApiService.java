@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -47,6 +48,7 @@ import com.chenjinguyen.bookcommunity.model.Response.CommentResponse;
 import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
+import com.chenjinguyen.bookcommunity.model.Response.LikeResponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 import com.chenjinguyen.bookcommunity.model.UserModel;
 import com.squareup.picasso.Picasso;
@@ -58,6 +60,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
+import at.markushi.ui.CircleButton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,7 +74,7 @@ public class ApiService {
     SharedPreferences dataLocal;
 
     public ApiService() {
-        String url = String.join("",BuildConfig.SERVER_PROTOCOL, "://", BuildConfig.SERVER_HOST, (BuildConfig.SERVER_PORT == "80") ? "" : ":", (BuildConfig.SERVER_PORT == "80") ? "" : BuildConfig.SERVER_PORT, "/api/");
+        String url = String.join("", BuildConfig.SERVER_PROTOCOL, "://", BuildConfig.SERVER_HOST, (BuildConfig.SERVER_PORT == "80") ? "" : ":", (BuildConfig.SERVER_PORT == "80") ? "" : BuildConfig.SERVER_PORT, "/api/");
         api = new Retrofit
                 .Builder()
                 .baseUrl(url)
@@ -88,7 +91,7 @@ public class ApiService {
                 RecyclerView trendingRecycler = v.findViewById(R.id.category_trending_list);
                 BookAdapter adapter = new BookAdapter(v.getContext(), data, 1);
                 trendingRecycler.setAdapter(adapter);
-                trendingRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false));
+                trendingRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false));
             }
 
             @Override
@@ -104,7 +107,7 @@ public class ApiService {
                 RecyclerView textbookRecycler = v.findViewById(R.id.category_textbook_list);
                 BookAdapter adapter = new BookAdapter(v.getContext(), data, 1);
                 textbookRecycler.setAdapter(adapter);
-                textbookRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false));
+                textbookRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false));
             }
 
             @Override
@@ -120,7 +123,7 @@ public class ApiService {
                 ArrayList<BookModel> data = response.body().getBooks();
                 BookAdapter adapter = new BookAdapter(v.getContext(), data, 1);
                 imageRecycler.setAdapter(adapter);
-                imageRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false));
+                imageRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
             }
 
@@ -137,7 +140,7 @@ public class ApiService {
                 ArrayList<BookModel> data = response.body().getBooks();
                 BookAdapter adapter = new BookAdapter(v.getContext(), data, 1);
                 audioRecycler.setAdapter(adapter);
-                audioRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false));
+                audioRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
             }
 
@@ -149,7 +152,7 @@ public class ApiService {
     }
 
     public void SearchActivity(View v) {
-        SearchView searchView= v.findViewById(R.id.searchtruyen);
+        SearchView searchView = v.findViewById(R.id.searchtruyen);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -163,11 +166,11 @@ public class ApiService {
                     @Override
                     public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
 
-                        RecyclerView recyclerView= v.findViewById(R.id.rcls);
+                        RecyclerView recyclerView = v.findViewById(R.id.rcls);
                         ArrayList<BookModel> data = response.body().getBooks();
                         BookAdapter adapter = new BookAdapter(v.getContext(), data, 2);
                         recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
                     }
 
                     @Override
@@ -181,7 +184,7 @@ public class ApiService {
 
     }
 
-    public void DetailFragment(int id,View v){
+    public void DetailFragment(int id, View v) {
         service.detailBook(id).enqueue(new Callback<BookResponse>() {
             @Override
             public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
@@ -197,71 +200,99 @@ public class ApiService {
         });
     }
 
-    public void DetailActivity(int id, View v) {
+    public void DetailActivity(String bearer, int id, View v) {
         service.detailBook(id).enqueue(new Callback<BookResponse>() {
             @Override
             public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
 
-                    BookModel book = response.body().getData();
+                BookModel book = response.body().getData();
 
-                    TextView title_book = v.findViewById(R.id.title_book);
-                    TextView author_book = v.findViewById(R.id.author_book);
-                    TextView description_book = v.findViewById(R.id.description_book);
-                    TextView episode_count_book = v.findViewById(R.id.episode_count_book);
-                    TextView category_book = v.findViewById(R.id.category_book);
-                    TextView view_book = v.findViewById(R.id.view_book);
-                    ImageView poster_book = v.findViewById(R.id.poster_book);
-                        Log.e("id",id+"");
-                Log.e("gettitle",book.getTitle()+"");
-                    Picasso.get().load(book.getPoster()).fit().centerCrop().into(poster_book);
-                    title_book.setText(book.getTitle());
+                TextView title_book = v.findViewById(R.id.title_book);
+                TextView author_book = v.findViewById(R.id.author_book);
+                TextView description_book = v.findViewById(R.id.description_book);
+                TextView episode_count_book = v.findViewById(R.id.episode_count_book);
+                TextView category_book = v.findViewById(R.id.category_book);
+                TextView view_book = v.findViewById(R.id.view_book);
+                ImageView poster_book = v.findViewById(R.id.poster_book);
+                Log.e("id", id + "");
+                Log.e("gettitle", book.getTitle() + "");
+                Picasso.get().load(book.getPoster()).fit().centerCrop().into(poster_book);
+                title_book.setText(book.getTitle());
 
-                    author_book.setText(book.getAuthor());
+                author_book.setText(book.getAuthor());
 
-                    /*description_book.setText(book.getDescription());*/
-                    view_book.setText(book.getView() + "");
+                /*description_book.setText(book.getDescription());*/
+                view_book.setText(book.getView() + "");
 
-                    String category;
-                    switch (book.getCategory()) {
-                        case "TEXT":
-                            category = "Truyện Chữ";
-                            break;
-                        case "IMAGE":
-                            category = "Truyện Tranh";
-                            break;
-                        case "AUDIO":
-                            category = "Truyện Audio";
-                            break;
-                        default:
-                            category = "Truyện";
-                            break;
-                    }
-                    category_book.setText(category);
+                String category;
+                switch (book.getCategory()) {
+                    case "TEXT":
+                        category = "Truyện Chữ";
+                        break;
+                    case "IMAGE":
+                        category = "Truyện Tranh";
+                        break;
+                    case "AUDIO":
+                        category = "Truyện Audio";
+                        break;
+                    default:
+                        category = "Truyện";
+                        break;
+                }
+                category_book.setText(category);
 
 
                 service.getEpisodeOfBook(id).enqueue(new Callback<EpisodesReponse>() {
                     @Override
                     public void onResponse(Call<EpisodesReponse> call, Response<EpisodesReponse> response) {
-                        EpisodeModel episode = response.body().getData().get(0);
-                        RelativeLayout read_first_button = v.findViewById(R.id.read_first_button_book);
                         TextView read_first_text = v.findViewById(R.id.read_first_text_book);
-                        Log.e("LOIIIII", Integer.toString(response.body().getData().size()));
-                        episode_count_book.setText(Integer.toString(response.body().getData().size()));
-                        read_first_text.setText(("Đọc " + episode.getName()).toUpperCase());
+                        List<EpisodeModel> episodeModels = response.body().getData();
+                        if(episodeModels.size() > 0){
+                            EpisodeModel episode = episodeModels.get(0);
+                            RelativeLayout read_first_button = v.findViewById(R.id.read_first_button_book);
+                            episode_count_book.setText(Integer.toString(response.body().getData().size()));
+                            read_first_text.setText(("Đọc " + episode.getName()).toUpperCase());
 
-                        read_first_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent t = new Intent(v.getContext(), EpisodeActivity.class);
-                                t.putExtra("episode", episode);
-                                t.putExtra("book", book);
-                                v.getContext().startActivity(t);
-                            }
-                        });
+                            read_first_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent t = new Intent(v.getContext(), EpisodeActivity.class);
+                                    t.putExtra("episode", episode);
+                                    t.putExtra("book", book);
+                                    v.getContext().startActivity(t);
+                                }
+                            });
+                        }else{
+                            read_first_text.setText("KHÔNG CÓ CHƯƠNG");
+                        }
+
                     }
 
                     @Override
                     public void onFailure(Call<EpisodesReponse> call, Throwable t) {
+
+                    }
+                });
+                service.TestFavorite(bearer, id).enqueue(new Callback<LikeResponse>() {
+                    @Override
+                    public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
+                        CircleButton cbt_like = v.findViewById(R.id.heart_button);
+                        boolean success = response.body().isSuccess();
+                        if (success) {
+
+                            if (response.body().isData()) {
+
+                                cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_24));
+                            } else {
+                                cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LikeResponse> call, Throwable t) {
 
                     }
                 });
@@ -331,22 +362,21 @@ public class ApiService {
     public void ListofWorksPosted(String bearer, View v) {
         service.me(bearer).enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response){
-               if(response.code() != 401){
-                   boolean success = response.body().isSuccess();
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if (response.code() != 401) {
+                    boolean success = response.body().isSuccess();
 
-                   if(success) {
-                       UserModel userModel = response.body().getUser();
-                       TextView tvName = v.findViewById(R.id.tvName);
-                       ImageView imgAvt = v.findViewById(R.id.imageView);
+                    if (success) {
+                        UserModel userModel = response.body().getUser();
+                        TextView tvName = v.findViewById(R.id.tvName);
+                        ImageView imgAvt = v.findViewById(R.id.imageView);
 
-                       tvName.setText(userModel.getName());
-                       Picasso.get().load(userModel.getAvatar()).fit().centerCrop().into(imgAvt);
-                   }
-                   else {
-                       Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                   }
-               }
+                        tvName.setText(userModel.getName());
+                        Picasso.get().load(userModel.getAvatar()).fit().centerCrop().into(imgAvt);
+                    } else {
+                        Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
             }
 
@@ -361,17 +391,16 @@ public class ApiService {
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 boolean success = response.body().isSuccess();
 
-                if(success) {
+                if (success) {
 
-                   ArrayList<BookModel> bookModels = response.body().getBooks();
-                   BookAdapter bookAdapter = new BookAdapter(v.getContext(), bookModels, 1);
-                   RecyclerView recyclerView = v.findViewById(R.id.rclListofWorks);
-                   recyclerView.setAdapter(bookAdapter);
+                    ArrayList<BookModel> bookModels = response.body().getBooks();
+                    BookAdapter bookAdapter = new BookAdapter(v.getContext(), bookModels, 1);
+                    RecyclerView recyclerView = v.findViewById(R.id.rclListofWorks);
+                    recyclerView.setAdapter(bookAdapter);
 
                     recyclerView.setLayoutManager(new GridLayoutManager(v.getContext(), 2));
 
-                }
-                else {
+                } else {
                     Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -386,17 +415,17 @@ public class ApiService {
     public void UserFragment(String bearer, View v) {
         service.me(bearer).enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response){
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
 
                 ArrayList<InfoAccount> InfoAccounts = new ArrayList<>();
                 RecyclerView recyclerView = v.findViewById(R.id.rclinfor);
 
 
-                if(response.code() != 401){
+                if (response.code() != 401) {
                     boolean success = response.body().isSuccess();
 
-                    if(success) {
-                        InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_account_circle_24, "Đăng xuất",LogoutActivity .class));
+                    if (success) {
+                        InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_account_circle_24, "Đăng xuất", LogoutActivity.class));
 
                         UserModel userModel = response.body().getUser();
                         TextView tvName = v.findViewById(R.id.tvName);
@@ -412,12 +441,10 @@ public class ApiService {
                                 v.getContext().startActivity(intent);
                             }
                         });
-                    }
-                    else {
+                    } else {
                         Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     InfoAccounts.add(new InfoAccount(R.drawable.ic_baseline_stars_24, "Đăng Nhập", LoginActivity.class));
                 }
                 InfoAccountAdapter InfoAccountAdapter = new InfoAccountAdapter(v.getContext(), InfoAccounts);
@@ -425,7 +452,6 @@ public class ApiService {
                 recyclerView.setAdapter(InfoAccountAdapter);
 
             }
-
 
 
             @Override
@@ -436,9 +462,9 @@ public class ApiService {
         service.meBook(bearer).enqueue(new Callback<BooksResponse>() {
             @Override
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
-                if(response.code() != 401) {
+                if (response.code() != 401) {
                     boolean success = response.body().isSuccess();
-                    if(success) {
+                    if (success) {
                         int book_count = response.body().getBooks().size();
                         TextView tvSLTruyen = v.findViewById(R.id.tvSLDocTruyen);
                         tvSLTruyen.setText(book_count + "");
@@ -455,23 +481,23 @@ public class ApiService {
         service.me(bearer).enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                if(response.code() != 401) {
+                if (response.code() != 401) {
                     boolean success = response.body().isSuccess();
-                    if(success) {
+                    if (success) {
                         int point = response.body().getUser().getPoint();
                         TextView tvSoDiem = v.findViewById(R.id.tvSoDiem);
                         tvSoDiem.setText(point + "");
 
-                        tvSoDiem.setOnClickListener(new View.OnClickListener(){
-                            public void onClick(View v){
+                        tvSoDiem.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
                                 Intent intent = new Intent(v.getContext(), PointHistoryActivity.class);
                                 v.getContext().startActivity(intent);
                             }
                         });
 
                         TextView tvDiem = v.findViewById(R.id.tvDiem);
-                        tvDiem.setOnClickListener(new View.OnClickListener(){
-                            public void onClick(View v){
+                        tvDiem.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
                                 Intent intent = new Intent(v.getContext(), PointHistoryActivity.class);
                                 v.getContext().startActivity(intent);
                             }
@@ -492,7 +518,7 @@ public class ApiService {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 boolean success = response.body().isSuccess();
-                if(success) {
+                if (success) {
                     int point = response.body().getUser().getPoint();
                     TextView tvSoDiem = v.findViewById(R.id.tvDiemSo);
                     tvSoDiem.setText(point + "");
@@ -508,12 +534,12 @@ public class ApiService {
             @Override
             public void onResponse(Call<PointResponse> call, Response<PointResponse> response) {
                 boolean success = response.body().isSuccess();
-                if(success) {
+                if (success) {
                     ArrayList<PointModel> pointModels = response.body().getData();
                     MyPointAdapter myPointAdapter = new MyPointAdapter(v.getContext(), pointModels);
                     RecyclerView recyclerView = v.findViewById(R.id.recyclerLSDiem);
                     recyclerView.setAdapter(myPointAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), RecyclerView.VERTICAL,false));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), RecyclerView.VERTICAL, false));
                 }
             }
 
@@ -524,15 +550,15 @@ public class ApiService {
         });
     }
 
-    public void CategoryFragment(View v){
+    public void CategoryFragment(View v) {
         service.getBookCategory("TEXT").enqueue(new Callback<BooksResponse>() {
             @Override
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 ArrayList<BookModel> books = response.body().getBooks();
                 RecyclerView recyclerView = v.findViewById(R.id.rv_category);
-                BookAdapter bookAdapter = new BookAdapter(v.getContext(),books,2);
+                BookAdapter bookAdapter = new BookAdapter(v.getContext(), books, 2);
                 recyclerView.setAdapter(bookAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
+                recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
             }
 
             @Override
@@ -542,15 +568,15 @@ public class ApiService {
         });
     }
 
-    public void setCategoryData(RecyclerView recyclerView, String category, View v){
+    public void setCategoryData(RecyclerView recyclerView, String category, View v) {
         service.getBookCategory(category).enqueue(new Callback<BooksResponse>() {
             @Override
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 ArrayList<BookModel> books = response.body().getBooks();
-                BookAdapter bookAdapter = new BookAdapter(v.getContext(),books,2);
+                BookAdapter bookAdapter = new BookAdapter(v.getContext(), books, 2);
 
                 recyclerView.setAdapter(bookAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
+                recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
             }
 
             @Override
@@ -560,7 +586,7 @@ public class ApiService {
         });
     }
 
-    public void EpisodeTextFragment(String bearer, int id, View v){
+    public void EpisodeTextFragment(String bearer, int id, View v) {
         service.getEpisode(id).enqueue(new Callback<EpisodeReponse>() {
             @Override
             public void onResponse(Call<EpisodeReponse> call, Response<EpisodeReponse> response) {
@@ -576,7 +602,8 @@ public class ApiService {
         });
 
     }
-    public void EpisodeActivity(FragmentManager fm,EpisodeModel episode,BookModel book,View v){
+
+    public void EpisodeActivity(FragmentManager fm, EpisodeModel episode, BookModel book, View v) {
         service.getEpisodeOfBook(book.getId()).enqueue(new Callback<EpisodesReponse>() {
             @Override
             public void onResponse(Call<EpisodesReponse> call, Response<EpisodesReponse> response) {
@@ -590,41 +617,41 @@ public class ApiService {
                     @Override
                     public void onClick(View v) {
 
-                        BottomEpisodeDialog bottomEpisodeDialog = new BottomEpisodeDialog(result,episode,book);
-                        bottomEpisodeDialog.show(fm,"TAG");
+                        BottomEpisodeDialog bottomEpisodeDialog = new BottomEpisodeDialog(result, episode, book);
+                        bottomEpisodeDialog.show(fm, "TAG");
 
 
                     }
                 });
-                int index = IntStream.range(0, result.size()) .filter(i -> result.get(i).getEpisode_id() == episode.getEpisode_id()).findFirst().orElse(-1);
-                if(index > 0){
+                int index = IntStream.range(0, result.size()).filter(i -> result.get(i).getEpisode_id() == episode.getEpisode_id()).findFirst().orElse(-1);
+                if (index > 0) {
 
                     back_button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent t = new Intent(v.getContext(), EpisodeActivity.class);
-                            t.putExtra("episode",result.get(index-1));
-                            t.putExtra("book",book);
-                            t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            t.putExtra("episode", result.get(index - 1));
+                            t.putExtra("book", book);
+                            t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             v.getContext().startActivity(t);
                         }
                     });
-                }else{
+                } else {
                     back_button_icon.setImageResource(R.drawable.ic_baseline_check_box_outline_blank_24);
                 }
-                if( index < result.size()-1){
+                if (index < result.size() - 1) {
 
                     next_button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent t = new Intent(v.getContext(), EpisodeActivity.class);
-                            t.putExtra("episode",result.get(index+1));
-                            t.putExtra("book",book);
-                            t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            t.putExtra("episode", result.get(index + 1));
+                            t.putExtra("book", book);
+                            t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             v.getContext().startActivity(t);
                         }
                     });
-                }else{
+                } else {
                     next_button_icon.setImageResource(R.drawable.ic_baseline_check_box_outline_blank_24);
                 }
 
@@ -638,19 +665,19 @@ public class ApiService {
 
     }
 
-    public void CommentActivity(String bearer,int id,View v){
+    public void CommentActivity(String bearer, int id, View v) {
         service.getCommentBook(id).enqueue(new Callback<CommentsResponse>() {
             @Override
             public void onResponse(Call<CommentsResponse> call, Response<CommentsResponse> response) {
-               if(response.body().isSuccess()){
-                   ArrayList<CommentModel> comments = response.body().getDatacomment();
-                   CommentAdapter commentAdapter = new CommentAdapter(v.getContext(),comments);
-                   RecyclerView recyclerView= v.findViewById(R.id.rv_comment);
-                   recyclerView.setAdapter(commentAdapter);
-                   recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));
-                   TextView txt_countcomment=v.findViewById(R.id.txt_count);
-                   txt_countcomment.setText(comments.size()+"");
-               }
+                if (response.body().isSuccess()) {
+                    ArrayList<CommentModel> comments = response.body().getDatacomment();
+                    CommentAdapter commentAdapter = new CommentAdapter(v.getContext(), comments);
+                    RecyclerView recyclerView = v.findViewById(R.id.rv_comment);
+                    recyclerView.setAdapter(commentAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
+                    TextView txt_countcomment = v.findViewById(R.id.txt_count);
+                    txt_countcomment.setText(comments.size() + "");
+                }
             }
 
             @Override
@@ -659,41 +686,73 @@ public class ApiService {
             }
         });
 
-        }
+    }
 
-    public void PostCommentFragment(String bearer, int id, String content, View v){
-        service.postcommentBook(bearer,id,content).enqueue(new Callback<CommentResponse>() {
+    public void PostCommentFragment(String bearer, int id, String content, View v) {
+        service.postcommentBook(bearer, id, content).enqueue(new Callback<CommentResponse>() {
 
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                 boolean success = response.body().isSuccess();
-               
+
                 if (success) {
                     Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    CommentActivity(bearer,id,v);
+                    CommentActivity(bearer, id, v);
                 }
             }
 
             @Override
             public void onFailure(Call<CommentResponse> call, Throwable t) {
-                Log.e("loi",t.getMessage());
+                Log.e("loi", t.getMessage());
             }
         });
 
     }
 
-    public void  GetFavorite(String bearer,View v){
-        service.getfavorite(bearer).enqueue(new Callback<BookResponse>() {
+    public void PostFavorite(String bearer, int idbook, View v) {
+        service.postFavoriteBook(bearer, idbook).enqueue(new Callback<LikeResponse>() {
             @Override
-            public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
+            public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
+                CircleButton cbt_like = v.findViewById(R.id.heart_button);
                 boolean success = response.body().isSuccess();
-                if(success){
-                    Toast.makeText(v.getContext(), "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                if (success) {
+
+                    if (response.body().isData()) {
+
+                        cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_24));
+                    } else {
+                        cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+
+                    }
+
                 }
             }
 
             @Override
-            public void onFailure(Call<BookResponse> call, Throwable t) {
+            public void onFailure(Call<LikeResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void GetFavorite(String bearer, View v) {
+        service.getfavorite(bearer).enqueue(new Callback<BooksResponse>() {
+            @Override
+            public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
+                boolean success = response.body().isSuccess();
+                if (success) {
+                    ArrayList<BookModel> bookModels = response.body().getBooks();
+                    BookAdapter bookAdapter = new BookAdapter(v.getContext(), bookModels, 2);
+
+                    RecyclerView recyclerView = v.findViewById(R.id.rv_favorite);
+                    recyclerView.setAdapter(bookAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BooksResponse> call, Throwable t) {
 
             }
         });

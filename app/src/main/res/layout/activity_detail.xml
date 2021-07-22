@@ -35,7 +35,7 @@
         android:layout_width="50dip"
         android:layout_height="50dip"
         android:src="@drawable/ic_baseline_favorite_border_24"
-        app:cb_color="#FE9898"
+        app:cb_color="@color/button_favorite_active"
         android:layout_gravity="right"
         app:cb_pressedRingWidth="8dip" />
 </LinearLayout>

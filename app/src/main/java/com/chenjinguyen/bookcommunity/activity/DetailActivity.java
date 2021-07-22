@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     View v;
     TabLayout tabLayout;
     CircleButton btn_heart;
+    SharedPreferences dataLocal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +42,14 @@ public class DetailActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Bình luận"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         btn_heart=findViewById(R.id.heart_button);
+        dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
+        String token = dataLocal.getString("token","");
         final TabLayoutDetailBookAdapter adapter = new TabLayoutDetailBookAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,DetailActivity.this,tabLayout.getTabCount(),id);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         apiService = new ApiService();
-        apiService.DetailActivity(id,v);
+        apiService.DetailActivity(token,id,v);
 
 
         RelativeLayout back_button = findViewById(R.id.back_button);
@@ -67,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
             btn_heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    apiService.PostFavorite(token, id,v);
                 }
             });
         back_button.setOnClickListener(new View.OnClickListener() {
