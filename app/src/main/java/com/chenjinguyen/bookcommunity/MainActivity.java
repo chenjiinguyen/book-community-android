@@ -43,8 +43,6 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static final String CHANNEL_ID = "Channel1";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         if(device != ""){
             ApiService apiService = new ApiService();
             apiService.importToken(device);
-            Toast.makeText(this, device, Toast.LENGTH_SHORT).show();
         }
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 

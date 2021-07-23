@@ -61,6 +61,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'org.apache.commons:commons-lang3:3.4'
+
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 }
 
 

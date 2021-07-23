@@ -297,18 +297,21 @@ public class ApiService {
                     @Override
                     public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
                         CircleButton cbt_like = v.findViewById(R.id.heart_button);
-                        boolean success = response.body().isSuccess();
-                        if (success) {
+                        if(response.code() == 200){
+                            boolean success = response.body().isSuccess();
+                            if (success) {
 
-                            if (response.body().isData()) {
+                                if (response.body().isData()) {
 
-                                cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_24));
-                            } else {
-                                cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+                                    cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_24));
+                                } else {
+                                    cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+
+                                }
 
                             }
-
                         }
+
                     }
 
                     @Override
@@ -752,6 +755,20 @@ public class ApiService {
         });
     }
 
+    public void EpisodeFragmentAudio(String bearer, int idEpi, View v) {
+        service.mePointCreate(bearer, idEpi, true, 5).enqueue(new Callback<PointResponse>() {
+            @Override
+            public void onResponse(Call<PointResponse> call, Response<PointResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<PointResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     public void ChangeNameDialog(String bearer, String name, View v) {
         service.upDateName(bearer, name).enqueue(new Callback<AuthResponse>() {
             @Override
@@ -810,40 +827,25 @@ public class ApiService {
             }
         });
     }
-    public void setCommentData(String bearer,int id,View v){
-        service.getCommentBook(id).enqueue(new Callback<CommentsResponse>() {
-            @Override
-            public void onResponse(Call<CommentsResponse> call, Response<CommentsResponse> response) {
-                if (response.body().isSuccess()) {
-                    ArrayList<CommentModel> comments = response.body().getDatacomment();
-                    CommentAdapter commentAdapter = new CommentAdapter(v.getContext(), comments);
-                    RecyclerView recyclerView = v.findViewById(R.id.rv_comment);
-                    recyclerView.setAdapter(commentAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
-                    TextView txt_countcomment = v.findViewById(R.id.txt_count);
-                    txt_countcomment.setText(comments.size() + "");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<CommentsResponse> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     public void PostCommentFragment(String bearer, int id, String content, View v) {
         service.postcommentBook(bearer, id, content).enqueue(new Callback<CommentResponse>() {
 
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
-                boolean success = response.body().isSuccess();
 
-                if (success) {
-                    Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    CommentActivity(bearer, id, v);
+                if(response.code() == 200){
+                    boolean success = response.body().isSuccess();
+
+                    if (success) {
+                        Toast.makeText(v.getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        CommentActivity(bearer, id, v);
+                    }
+                }else{
+                    Toast.makeText(v.getContext(), "Vui lòng đăng nhập để thực hiện chức năng này", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
@@ -859,18 +861,23 @@ public class ApiService {
             @Override
             public void onResponse(Call<LikeResponse> call, Response<LikeResponse> response) {
                 CircleButton cbt_like = v.findViewById(R.id.heart_button);
-                boolean success = response.body().isSuccess();
-                if (success) {
+                if(response.code() == 200){
+                    boolean success = response.body().isSuccess();
+                    if (success) {
 
-                    if (response.body().isData()) {
+                        if (response.body().isData()) {
 
-                        cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_24));
-                    } else {
-                        cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+                            cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_24));
+                        } else {
+                            cbt_like.setImageDrawable(v.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+
+                        }
 
                     }
-
+                }else{
+                    Toast.makeText(v.getContext(), "Vui lòng đăng nhập để thực hiện chức năng này", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
@@ -884,15 +891,20 @@ public class ApiService {
         service.getfavorite(bearer).enqueue(new Callback<BooksResponse>() {
             @Override
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
-                boolean success = response.body().isSuccess();
-                if (success) {
-                    ArrayList<BookModel> bookModels = response.body().getBooks();
-                    BookAdapter bookAdapter = new BookAdapter(v.getContext(), bookModels, 2);
+                if(response.code() == 200){
+                    boolean success = response.body().isSuccess();
+                    if (success) {
+                        ArrayList<BookModel> bookModels = response.body().getBooks();
+                        BookAdapter bookAdapter = new BookAdapter(v.getContext(), bookModels, 2);
 
-                    RecyclerView recyclerView = v.findViewById(R.id.rv_favorite);
-                    recyclerView.setAdapter(bookAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
+                        RecyclerView recyclerView = v.findViewById(R.id.rv_favorite);
+                        recyclerView.setAdapter(bookAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
+                    }
+                }else{
+                    Toast.makeText(v.getContext(), "Vui lòng đăng nhập để thực hiện chức năng này", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
 

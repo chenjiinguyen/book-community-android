@@ -39,10 +39,10 @@ public class PushNotificationService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
-//        SharedPreferences dataLocal = this.getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = dataLocal.edit();
-//        editor.putString("device",token);
-//        editor.commit();
+        SharedPreferences dataLocal = this.getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = dataLocal.edit();
+        editor.putString("device",token);
+        editor.commit();
         ApiService apiService = new ApiService();
         apiService.importToken(token);
         sendRegistrationToServer(token);
@@ -58,7 +58,6 @@ public class PushNotificationService extends FirebaseMessagingService {
         Intent intent = new Intent(this, DetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("id", id);
-
         return intent;
     }
 

@@ -21,8 +21,6 @@ import com.google.android.material.tabs.TabLayout;
 import at.markushi.ui.CircleButton;
 
 public class DetailActivity extends AppCompatActivity {
-//    ImageView poster_book;
-//    TextView description_book;
     ViewPager viewPager;
     ApiService apiService;
     View v;
