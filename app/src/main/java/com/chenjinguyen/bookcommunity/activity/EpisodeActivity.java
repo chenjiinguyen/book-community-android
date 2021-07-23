@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.chenjinguyen.bookcommunity.R;
 import com.chenjinguyen.bookcommunity.dialog.BottomEpisodeDialog;
+import com.chenjinguyen.bookcommunity.fragment.EpisodeAudioFragment;
 import com.chenjinguyen.bookcommunity.fragment.EpisodeImageFragment;
 import com.chenjinguyen.bookcommunity.fragment.EpisodeTextFragment;
 import com.chenjinguyen.bookcommunity.model.BookModel;
@@ -38,6 +39,9 @@ public class EpisodeActivity extends AppCompatActivity {
             loadFragment(new EpisodeTextFragment(episode));
         }else if(book.getCategory().equals("IMAGE")){
             loadFragment(new EpisodeImageFragment(episode));
+        }
+        else if(book.getCategory().equals("AUDIO")) {
+            loadFragment(new EpisodeAudioFragment(episode));
         }
 
         ApiService apiService = new ApiService();

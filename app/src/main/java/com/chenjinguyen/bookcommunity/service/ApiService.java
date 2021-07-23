@@ -242,22 +242,29 @@ public class ApiService {
                 service.getEpisodeOfBook(id).enqueue(new Callback<EpisodesReponse>() {
                     @Override
                     public void onResponse(Call<EpisodesReponse> call, Response<EpisodesReponse> response) {
-                        EpisodeModel episode = response.body().getData().get(0);
-                        RelativeLayout read_first_button = v.findViewById(R.id.read_first_button_book);
                         TextView read_first_text = v.findViewById(R.id.read_first_text_book);
-                        Log.e("LOIIIII",Integer.toString(response.body().getData().size()));
-                        episode_count_book.setText(Integer.toString(response.body().getData().size()));
-                        read_first_text.setText(("Đọc " + episode.getName()).toUpperCase());
 
-                        read_first_button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent t = new Intent(v.getContext(), EpisodeActivity.class);
-                                t.putExtra("episode",episode);
-                                t.putExtra("book",book);
-                                v.getContext().startActivity(t);
-                            }
-                        });
+                        if(response.body().getData().size() > 0){
+                            EpisodeModel episode = response.body().getData().get(0);
+                            RelativeLayout read_first_button = v.findViewById(R.id.read_first_button_book);
+                            Log.e("LOIIIII",Integer.toString(response.body().getData().size()));
+                            episode_count_book.setText(Integer.toString(response.body().getData().size()));
+                            read_first_text.setText(("Đọc " + episode.getName()).toUpperCase());
+
+                            read_first_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent t = new Intent(v.getContext(), EpisodeActivity.class);
+                                    t.putExtra("episode",episode);
+                                    t.putExtra("book",book);
+                                    v.getContext().startActivity(t);
+                                }
+                            });
+                        }else {
+                            read_first_text.setText(("CHƯA CÓ CHƯƠNG"));
+
+                        }
+
                     }
 
                     @Override
@@ -574,23 +581,7 @@ public class ApiService {
         });
     }
 
-    public void EpisodeTextFragment(String bearer, int id, View v){
-        service.getEpisode(id).enqueue(new Callback<EpisodeReponse>() {
-            @Override
-            public void onResponse(Call<EpisodeReponse> call, Response<EpisodeReponse> response) {
-                EpisodeModel episode = response.body().getData();
 
-
-            }
-
-            @Override
-            public void onFailure(Call<EpisodeReponse> call, Throwable t) {
-
-            }
-        });
-
-
-    }
     public void EpisodeActivity(FragmentManager fm,EpisodeModel episode,BookModel book,View v){
         service.getEpisodeOfBook(book.getId()).enqueue(new Callback<EpisodesReponse>() {
             @Override
@@ -701,6 +692,20 @@ public class ApiService {
                     });
 
                 }
+            }
+        });
+    }
+
+    public void EpisodeFragmentAudio(String bearer, int idEpi, View v) {
+        service.mePointCreate(bearer, idEpi, true, 5).enqueue(new Callback<PointResponse>() {
+            @Override
+            public void onResponse(Call<PointResponse> call, Response<PointResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<PointResponse> call, Throwable t) {
+
             }
         });
     }
