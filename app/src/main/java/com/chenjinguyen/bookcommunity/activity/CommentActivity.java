@@ -14,7 +14,7 @@ import com.chenjinguyen.bookcommunity.R;
 import com.chenjinguyen.bookcommunity.service.ApiService;
 
 public class CommentActivity extends AppCompatActivity {
-    RecyclerView rv_comment;
+
     View v;
     ApiService apiService;
     SharedPreferences dataLocal;
@@ -22,13 +22,13 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
-        Intent itent = getIntent();
-        int id = itent.getIntExtra("id",1);
+
+        int id = 1;
         View v = getWindow().getDecorView().getRootView();
         dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
         String token = dataLocal.getString("token","");
         apiService = new ApiService();
+        apiService.CommentActivity(token,id,v);
 
-        apiService.setCommentData(token,id,v);
     }
 }

@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.chenjinguyen.bookcommunity.activity.CommentActivity;
 import com.chenjinguyen.bookcommunity.activity.HomeActivity;
 import com.chenjinguyen.bookcommunity.activity.PersionalInfoActivity;
 import com.chenjinguyen.bookcommunity.fragment.HomeFragment;
@@ -48,38 +49,45 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermistion();
+
+
         View v = getWindow().getDecorView().getRootView();
         SharedPreferences dataLocal = v.getContext().getSharedPreferences("dataLocal", Context.MODE_PRIVATE);
 
 
-//        String device = dataLocal.getString("device", "");
-//        if(device != ""){
-////            ApiService apiService = new ApiService();
-////            apiService.importToken(device);
-//            Toast.makeText(this, device, Toast.LENGTH_SHORT).show();
-//        }
-        Intent t = new Intent(this, HomeActivity.class);
-        t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(t);
+        String device = dataLocal.getString("device", "");
+        if(device != ""){
+            ApiService apiService = new ApiService();
+            apiService.importToken(device);
+            Toast.makeText(this, device, Toast.LENGTH_SHORT).show();
+        }
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 
 
 
     }
 
-    //Check permistion android 6.0
-    private void checkPermistion() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent t = new Intent(this, HomeActivity.class);
+                    t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(t);
 
-            } else {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        1);
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(MainActivity.this, "Permission denied!", Toast.LENGTH_SHORT).show();
+                }
+                return;
             }
+            // add other cases for more permissions
         }
     }
 }

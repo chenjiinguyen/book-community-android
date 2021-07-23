@@ -31,10 +31,10 @@
         <activity android:name=".activity.ListofWorksPostedActivity" />
         <activity android:name=".activity.LogoutActivity" />
         <activity android:name=".activity.PointHistoryActivity" />
-        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.EpisodeActivity" />
-        <activity android:name=".activity.DetailActivity" />
+        <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".MainActivity">

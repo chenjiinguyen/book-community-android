@@ -8,6 +8,7 @@ import com.chenjinguyen.bookcommunity.model.Response.CommentsResponse;
 import com.chenjinguyen.bookcommunity.model.Response.DeviceResponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodeReponse;
 import com.chenjinguyen.bookcommunity.model.Response.EpisodesReponse;
+import com.chenjinguyen.bookcommunity.model.Response.LikeResponse;
 import com.chenjinguyen.bookcommunity.model.Response.PointResponse;
 
 import java.util.Date;
@@ -71,7 +72,7 @@ public interface BookCommunityService {
     @GET("book/{book}/comment/")
     Call<CommentsResponse> getCommentBook(@Path("book") int id);
 
-    @POST("comment/")
+   
     Call<CommentResponse> commentBook(@Field("idbook") int idbook, @Field("content") String content);
 
     @POST("device/create")
@@ -85,4 +86,21 @@ public interface BookCommunityService {
     @Multipart
     @POST("me/update/avatar")
     Call<AuthResponse>  changeAvatar(@Header("Authorization") String bearer, @Part MultipartBody.Part avatar);
+ 
+    @POST("comment/")
+    @FormUrlEncoded
+    Call<CommentResponse> postcommentBook(@Header("Authorization") String bearer,@Field("idbook") int idbook, @Field("content") String content);
+
+    @GET("me/book/favorite/")
+    Call<BooksResponse> getfavorite(@Header("Authorization") String bearer);
+
+    @POST("me/book/favorite/")
+    @FormUrlEncoded
+    Call<LikeResponse> postFavoriteBook(@Header("Authorization") String bearer,@Field("idbook") int idbook);
+
+    @GET("me/book/{idbook}/favorite/")
+    Call<LikeResponse> TestFavorite(@Header("Authorization") String bearer, @Path("idbook") int idbook);
+
+
+
 }

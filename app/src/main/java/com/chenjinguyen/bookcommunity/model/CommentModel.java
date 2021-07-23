@@ -25,7 +25,7 @@ public class CommentModel {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("avartar")
+    @SerializedName("avatar")
     @Expose
     private String avartar;
 
