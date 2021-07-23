@@ -50,7 +50,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
 
-                            android:src="@drawable/avatar"
+                            android:src="@drawable/default_avatar"
 
                             />
 
@@ -71,7 +71,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/montserrat"
-                                android:text="Diệp Hạ Nhi"
+                                android:text="Người Dùng"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 

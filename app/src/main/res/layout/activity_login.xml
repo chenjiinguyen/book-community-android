@@ -74,17 +74,17 @@
                 android:textColor="#FFFFFF"
                 android:layout_height="50dp"
                 android:backgroundTint="#FF3333"
+                android:gravity="center"
                 android:text="LOGIN"></Button>
 
             <TextView
                 android:layout_width="match_parent"
-                android:paddingLeft="150dp"
-                android:paddingRight="100dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
+                android:paddingVertical="30dp"
                 android:text="OR"
                 android:textColor="#FFFFFF"
-                android:textSize="20dp"></TextView>
+                android:gravity="center"
+                android:textSize="25dp"></TextView>
 
         </LinearLayout>
 
@@ -106,6 +106,7 @@
             android:layout_height="50dp"
             android:backgroundTint="#FF3333"
             android:text="REGISTER NOW"
+            android:gravity="center"
 
             ></Button>
     </LinearLayout>

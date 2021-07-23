@@ -26,7 +26,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="12dp"
-            app:srcCompat="@drawable/ic_baseline_favorite_24" />
+            android:src="@drawable/ic_baseline_favorite_point_24" />
 
         <TextView
             android:id="@+id/tvTen"
@@ -47,7 +47,7 @@
             android:layout_marginLeft="100dp"
             android:layout_marginTop="46dp"
             android:fontFamily="@font/montserrat"
-            android:text="12"
+            android:text="0"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/black"
