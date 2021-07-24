@@ -116,7 +116,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Log.e("chenjinguyen", t.getMessage());
+               ;
             }
         });
 
@@ -132,7 +132,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Log.e("chenjinguyen", t.getMessage());
+               ;
             }
         });
 
@@ -149,7 +149,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Log.e("chenjinguyen", t.getMessage());
+               ;
             }
         });
 
@@ -166,7 +166,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<BooksResponse> call, Throwable t) {
-                Log.e("chenjinguyen", t.getMessage());
+               ;
             }
         });
     }
@@ -195,7 +195,7 @@ public class ApiService {
 
                     @Override
                     public void onFailure(Call<BooksResponse> call, Throwable t) {
-                        Log.e("chenjinguyen", t.getMessage());
+                       ;
                     }
                 });
                 return false;
@@ -234,8 +234,8 @@ public class ApiService {
                 TextView category_book = v.findViewById(R.id.category_book);
                 TextView view_book = v.findViewById(R.id.view_book);
                 ImageView poster_book = v.findViewById(R.id.poster_book);
-                Log.e("id", id + "");
-                Log.e("gettitle", book.getTitle() + "");
+               ;
+               ;
                 Picasso.get().load(book.getPoster()).fit().centerCrop().into(poster_book);
                 title_book.setText(book.getTitle());
 
@@ -324,7 +324,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<BookResponse> call, Throwable t) {
-                Log.e("chenjinguyen", t.getMessage());
+               ;
             }
         });
 
@@ -348,7 +348,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.e("DANGNHAP_LOI", t.getMessage());
+               ;
             }
         });
     }
@@ -377,7 +377,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.e("DANGNHAP_LOI", t.getMessage());
+               ;
             }
         });
     }
@@ -417,7 +417,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.e("Not valid", t.getMessage());
+               ;
             }
         });
 
@@ -493,7 +493,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.e("Not valid", t.getMessage());
+               ;
             }
         });
         service.meBook(bearer).enqueue(new Callback<BooksResponse>() {
@@ -850,7 +850,7 @@ public class ApiService {
 
             @Override
             public void onFailure(Call<CommentResponse> call, Throwable t) {
-                Log.e("loi", t.getMessage());
+               ;
             }
         });
 
@@ -938,8 +938,8 @@ public class ApiService {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Log.e("nhuquynh", editNew.getText().toString().equals(editConfirm.getText().toString()) ? "True": "Fasle");
-                //Log.e("nhuquynh", editConfirm.getText().toString().length() + "");
+               ;
+                ;
                 if(editNew.getText().toString().equals(editConfirm.getText().toString())) {
 
                     service.changePassword(bearer, editNew.getText().toString()).enqueue(new Callback<AuthResponse>() {
@@ -1000,7 +1000,7 @@ public class ApiService {
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Log.e("nhuquynh", t.getMessage());
+               ;
             }
         });
     }

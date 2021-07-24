@@ -64,7 +64,7 @@ public class BottomEpisodeDialog extends BottomSheetDialogFragment implements Ad
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerArrayAdapter);
         int index = nameEpisodeArray.lastIndexOf(episode.getName());
-        Log.e("SÀAS","XÀM"+index);
+       ;
         spinner.setSelection(index,false);
 
         spinner.setOnItemSelectedListener(this);

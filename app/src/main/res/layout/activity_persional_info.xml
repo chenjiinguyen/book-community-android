@@ -54,7 +54,7 @@
         android:textSize="18dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:text="Diep Ha Nhi"
+        android:text="Khách"
         android:fontFamily="@font/montserrat"
         />
 
@@ -86,7 +86,7 @@
         android:layout_below="@+id/view1"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
-        android:text="Nữ"
+        android:text="Unknown"
         android:fontFamily="@font/montserrat"
         />
     <View
@@ -117,7 +117,7 @@
         android:layout_below="@+id/view2"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:text="07/11/2000"
+        android:text="01/01/2000"
         android:fontFamily="@font/montserrat"
         />
     <View
@@ -147,7 +147,7 @@
         android:layout_below="@+id/view3"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:text="nhuquynh@gmail.com"
+        android:text="example@book.community"
         android:fontFamily="@font/montserrat"
         />
 
@@ -184,7 +184,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/view4"
         android:layout_alignParentRight="true"
-        android:src="@drawable/avatar"
+        android:src="@drawable/default_avatar"
 
         />
     <View

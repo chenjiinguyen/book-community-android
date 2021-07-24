@@ -46,7 +46,7 @@ public class EpisodeImageFragment extends Fragment {
 
         RecyclerView recyclerView = v.findViewById(R.id.episode_image_content);
         ArrayList<String> content = episode.getContent();
-        Log.e("LOIIIII",""+content.size());
+       ;
         ImageEpisodeAdapter imageEpisodeAdapter = new ImageEpisodeAdapter(v.getContext(),content);
         recyclerView.setAdapter(imageEpisodeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext(),LinearLayoutManager.VERTICAL,false));

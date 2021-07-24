@@ -17,8 +17,9 @@ android:orientation="vertical"
    <TextView
        android:layout_gravity="center"
        android:textColor="@color/black"
-       android:text="Tác phẩm yêu thích"
-       android:textSize="30dp"
+       android:fontFamily="@font/montserrat"
+       android:text="TÁC PHẨM YÊU THÍCH"
+       android:textSize="25dp"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"/>
 </LinearLayout>
